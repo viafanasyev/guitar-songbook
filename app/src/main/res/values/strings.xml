@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">Guitar Songbook</string>
-    <string name="title_home">Home</string>
+    <string name="title_known_songs">Изученные песни</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+
+    <!-- Example data -->
+    <string name="stub_song_name">Название песни</string>
+    <string name="stub_song_author">Автор песни</string>
 </resources>
