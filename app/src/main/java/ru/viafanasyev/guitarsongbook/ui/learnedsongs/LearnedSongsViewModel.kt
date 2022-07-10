@@ -1,4 +1,4 @@
-package ru.viafanasyev.guitarsongbook.ui.knownsongs
+package ru.viafanasyev.guitarsongbook.ui.learnedsongs
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
@@ -12,8 +12,8 @@ import kotlinx.coroutines.withContext
 import ru.viafanasyev.guitarsongbook.domain.common.SongRepository
 import ru.viafanasyev.guitarsongbook.domain.entities.Song
 
-class KnownSongsViewModel(private val repository: SongRepository) : ViewModel() {
-    val allKnown: LiveData<List<Song>> = repository.allKnown.asLiveData()
+class LearnedSongsViewModel(private val repository: SongRepository) : ViewModel() {
+    val allLearned: LiveData<List<Song>> = repository.allLearned.asLiveData()
 
     fun getById(songId: Int): LiveData<Song> = liveData {
         emit(
@@ -33,9 +33,9 @@ class KnownSongsViewModel(private val repository: SongRepository) : ViewModel() 
 
     class Factory(private val repository: SongRepository) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            if (modelClass.isAssignableFrom(KnownSongsViewModel::class.java)) {
+            if (modelClass.isAssignableFrom(LearnedSongsViewModel::class.java)) {
                 @Suppress("UNCHECKED_CAST")
-                return KnownSongsViewModel(repository) as T
+                return LearnedSongsViewModel(repository) as T
             }
             throw IllegalArgumentException("Unknown ViewModel class")
         }

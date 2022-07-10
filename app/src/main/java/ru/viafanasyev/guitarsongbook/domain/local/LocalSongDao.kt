@@ -10,8 +10,8 @@ import ru.viafanasyev.guitarsongbook.domain.entities.Song
 
 @Dao
 interface LocalSongDao : SongDao {
-    @Query("SELECT * FROM song WHERE isKnown=1")
-    override fun getAllKnown(): Flow<List<Song>>
+    @Query("SELECT * FROM song WHERE isLearned=1")
+    override fun getAllLearned(): Flow<List<Song>>
 
     @Query("SELECT * FROM song WHERE id=:songId")
     override fun getById(songId: Int): Song

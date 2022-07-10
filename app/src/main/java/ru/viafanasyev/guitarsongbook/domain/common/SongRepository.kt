@@ -6,7 +6,7 @@ import ru.viafanasyev.guitarsongbook.domain.entities.Song
 
 class SongRepository(private val songDao: SongDao) {
 
-    val allKnown: Flow<List<Song>> = songDao.getAllKnown()
+    val allLearned: Flow<List<Song>> = songDao.getAllLearned()
 
     @Suppress("RedundantSuspendModifier")
     @WorkerThread

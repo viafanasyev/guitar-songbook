@@ -11,5 +11,5 @@ data class Song(
     @PrimaryKey val id: Int,
     val title: String,
     val author: String,
-    val isKnown: Boolean,
+    val isLearned: Boolean,
 ) : Parcelable
