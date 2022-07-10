@@ -14,12 +14,12 @@ class KnownSongsRecyclerAdapter(
 ) : RecyclerView.Adapter<KnownSongsRecyclerAdapter.KnownSongViewHolder>() {
 
     class KnownSongViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val songNameTextView: TextView = itemView.findViewById(R.id.songName)
+        private val songTitleTextView: TextView = itemView.findViewById(R.id.songTitle)
         private val songAuthorTextView: TextView = itemView.findViewById(R.id.songAuthor)
 
         fun bind(song: Song) {
-            songNameTextView.text = song.songName
-            songAuthorTextView.text = song.songAuthor
+            songTitleTextView.text = song.title
+            songAuthorTextView.text = song.author
         }
     }
 

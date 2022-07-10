@@ -12,10 +12,10 @@
     android:foreground="?selectableItemBackground">
 
     <TextView
-        android:id="@+id/songName"
+        android:id="@+id/songTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/stub_song_name"
+        android:text="@string/stub_song_title"
         android:textAppearance="?android:attr/textAppearanceLarge"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -26,7 +26,7 @@
         android:layout_height="wrap_content"
         android:text="@string/stub_song_author"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        app:layout_constraintStart_toStartOf="@+id/songName"
-        app:layout_constraintTop_toBottomOf="@+id/songName" />
+        app:layout_constraintStart_toStartOf="@+id/songTitle"
+        app:layout_constraintTop_toBottomOf="@+id/songTitle" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
