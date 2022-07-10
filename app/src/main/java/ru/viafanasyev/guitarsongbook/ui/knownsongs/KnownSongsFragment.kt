@@ -1,16 +1,18 @@
 package ru.viafanasyev.guitarsongbook.ui.knownsongs
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import ru.viafanasyev.guitarsongbook.adapter.KnownSongsRecyclerAdapter
 import ru.viafanasyev.guitarsongbook.databinding.FragmentKnownSongsBinding
-import ru.viafanasyev.guitarsongbook.domain.Song
+import ru.viafanasyev.guitarsongbook.domain.DataAccessService
+import ru.viafanasyev.guitarsongbook.domain.entities.Song
+import ru.viafanasyev.guitarsongbook.utils.Extras
 
 class KnownSongsFragment : Fragment() {
 
@@ -20,6 +22,10 @@ class KnownSongsFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
 
+    private val knownSongsViewModel: KnownSongsViewModel by viewModels {
+        KnownSongsViewModel.Factory(DataAccessService.getInstance(requireContext()).songRepository)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -27,11 +33,9 @@ class KnownSongsFragment : Fragment() {
     ): View {
         _binding = FragmentKnownSongsBinding.inflate(inflater, container, false)
 
-        val knownSongsViewModel = ViewModelProvider(this).get(KnownSongsViewModel::class.java)
-
         val knownSongsRecyclerView = binding.knownSongsRecyclerView
         knownSongsRecyclerView.layoutManager = LinearLayoutManager(context)
-        knownSongsViewModel.songs.observe(viewLifecycleOwner) {
+        knownSongsViewModel.allKnown.observe(viewLifecycleOwner) {
             knownSongsRecyclerView.adapter = KnownSongsRecyclerAdapter(it, ::onSongClick)
         }
         return binding.root

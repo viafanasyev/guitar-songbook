@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import ru.viafanasyev.guitarsongbook.R
-import ru.viafanasyev.guitarsongbook.domain.Song
+import ru.viafanasyev.guitarsongbook.domain.entities.Song
 
 class KnownSongsRecyclerAdapter(
     private val songs: List<Song>,
