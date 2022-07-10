@@ -42,11 +42,9 @@ class KnownSongsFragment : Fragment() {
     }
 
     private fun onSongClick(song: Song, position: Int) {
-        Toast.makeText(
-            context,
-            "Clicked song ${song.songName} at position $position",
-            Toast.LENGTH_SHORT
-        ).show()
+        val intent = Intent(activity, KnownSongActivity::class.java)
+        intent.putExtra(Extras.SONG, song)
+        startActivity(intent)
     }
 
     override fun onDestroyView() {
