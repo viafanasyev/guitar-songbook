@@ -36,8 +36,8 @@ class LearnedSongsFragment : Fragment() {
 
         val learnedSongsRecyclerView = binding.learnedSongsRecyclerView
         learnedSongsRecyclerView.layoutManager = LinearLayoutManager(context)
-        learnedSongsViewModel.allLearned.observe(viewLifecycleOwner) {
-            learnedSongsRecyclerView.adapter = LearnedSongsRecyclerAdapter(it, ::onSongClick)
+        learnedSongsRecyclerView.adapter  = LearnedSongsRecyclerAdapter(::onSongClick).apply {
+            learnedSongsViewModel.allLearned.observe(viewLifecycleOwner, ::submitList)
         }
 
         val fab = binding.fabAddLearnedSong
