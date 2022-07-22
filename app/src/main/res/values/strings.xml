@@ -4,6 +4,9 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
 
+    <!-- Content description -->
+    <string name="add_learned_song">Добавить изученную песню</string>
+
     <!-- Example data -->
     <string name="stub_song_title">Название песни</string>
     <string name="stub_song_author">Автор песни</string>

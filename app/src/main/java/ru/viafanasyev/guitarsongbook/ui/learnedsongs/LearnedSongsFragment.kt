@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.snackbar.Snackbar
 import ru.viafanasyev.guitarsongbook.adapter.LearnedSongsRecyclerAdapter
 import ru.viafanasyev.guitarsongbook.databinding.FragmentLearnedSongsBinding
 import ru.viafanasyev.guitarsongbook.domain.DataAccessService
@@ -38,6 +39,18 @@ class LearnedSongsFragment : Fragment() {
         learnedSongsViewModel.allLearned.observe(viewLifecycleOwner) {
             learnedSongsRecyclerView.adapter = LearnedSongsRecyclerAdapter(it, ::onSongClick)
         }
+
+        val fab = binding.fabAddLearnedSong
+        fab.setOnClickListener { button ->
+            val nextId = learnedSongsViewModel.allLearned.value?.size
+            if (nextId == null) {
+                Snackbar.make(button, "Can't add new song: id is null", Snackbar.LENGTH_LONG).show()
+            } else {
+                learnedSongsViewModel.insertAll(Song(nextId, "Название песни $nextId", "Автор $nextId", true))
+                Snackbar.make(button, "Added song with id=$nextId", Snackbar.LENGTH_LONG).show()
+            }
+        }
+
         return binding.root
     }
 
