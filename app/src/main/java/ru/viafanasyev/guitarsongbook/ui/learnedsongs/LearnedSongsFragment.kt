@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
+import ru.viafanasyev.guitarsongbook.R
 import ru.viafanasyev.guitarsongbook.adapter.LearnedSongsRecyclerAdapter
 import ru.viafanasyev.guitarsongbook.databinding.FragmentLearnedSongsBinding
 import ru.viafanasyev.guitarsongbook.domain.DataAccessService
@@ -40,14 +41,16 @@ class LearnedSongsFragment : Fragment() {
             learnedSongsViewModel.allLearned.observe(viewLifecycleOwner, ::submitList)
         }
 
+        val addLearnedSongActivityLauncher =
+            registerForActivityResult(AddLearnedSongResultContract(), this::onSongAdd)
+
         val fab = binding.fabAddLearnedSong
         fab.setOnClickListener { button ->
             val nextId = learnedSongsViewModel.allLearned.value?.size
             if (nextId == null) {
                 Snackbar.make(button, "Can't add new song: id is null", Snackbar.LENGTH_LONG).show()
             } else {
-                learnedSongsViewModel.insertAll(Song(nextId, "Название песни $nextId", "Автор $nextId", true))
-                Snackbar.make(button, "Added song with id=$nextId", Snackbar.LENGTH_LONG).show()
+                addLearnedSongActivityLauncher.launch(nextId)
             }
         }
 
@@ -58,6 +61,20 @@ class LearnedSongsFragment : Fragment() {
         val intent = Intent(activity, LearnedSongActivity::class.java)
         intent.putExtra(Extras.SONG, song)
         startActivity(intent)
+    }
+
+    private fun onSongAdd(song: Song?) {
+        if (song == null) {
+            return
+        }
+
+        learnedSongsViewModel.insertAll(song).invokeOnCompletion {
+            Snackbar.make(
+                binding.root,
+                getString(R.string.message_added_learned_song, song.author, song.title),
+                Snackbar.LENGTH_LONG
+            ).show()
+        }
     }
 
     override fun onDestroyView() {
