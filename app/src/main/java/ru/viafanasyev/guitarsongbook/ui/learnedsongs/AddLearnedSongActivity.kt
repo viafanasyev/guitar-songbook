@@ -6,10 +6,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
 import ru.viafanasyev.guitarsongbook.R
 import ru.viafanasyev.guitarsongbook.databinding.ActivityAddLearnedSongBinding
-import ru.viafanasyev.guitarsongbook.domain.entities.Song
+import ru.viafanasyev.guitarsongbook.domain.common.entities.Song
 import ru.viafanasyev.guitarsongbook.utils.Extras
 import ru.viafanasyev.guitarsongbook.utils.validateInput
-import kotlin.properties.Delegates
 
 class AddLearnedSongActivity : AppCompatActivity() {
 
@@ -17,14 +16,10 @@ class AddLearnedSongActivity : AppCompatActivity() {
 
     private val binding get() = _binding!!
 
-    private var songId by Delegates.notNull<Int>()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivityAddLearnedSongBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        songId = intent.getIntExtra(Extras.SONG_ID, 0)
 
         binding.learnedSongTitleEditText.addTextChangedListener(afterTextChanged = {
             binding.learnedSongTitleInputLayout.error = null
@@ -62,7 +57,7 @@ class AddLearnedSongActivity : AppCompatActivity() {
         return if (songTitle == null || songAuthor == null) {
             null
         } else {
-            Song(songId, songTitle, songAuthor, true)
+            Song(songTitle, songAuthor, true)
         }
     }
 

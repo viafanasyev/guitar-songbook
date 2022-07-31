@@ -2,27 +2,17 @@ package ru.viafanasyev.guitarsongbook.domain.common
 
 import androidx.annotation.WorkerThread
 import kotlinx.coroutines.flow.Flow
-import ru.viafanasyev.guitarsongbook.domain.entities.Song
+import ru.viafanasyev.guitarsongbook.domain.common.entities.Song
 
-class SongRepository(private val songDao: SongDao) {
+interface SongRepository {
+    val allLearned: Flow<List<Song>>
 
-    val allLearned: Flow<List<Song>> = songDao.getAllLearned()
-
-    @Suppress("RedundantSuspendModifier")
     @WorkerThread
-    suspend fun getById(songId: Int): Song {
-        return songDao.getById(songId)
-    }
+    suspend fun getById(songId: Int): Song
 
-    @Suppress("RedundantSuspendModifier")
     @WorkerThread
-    suspend fun insertAll(vararg songs: Song) {
-        songDao.insertAll(*songs)
-    }
+    suspend fun insertAll(vararg songs: Song)
 
-    @Suppress("RedundantSuspendModifier")
     @WorkerThread
-    suspend fun delete(user: Song) {
-        songDao.delete(user)
-    }
+    suspend fun delete(user: Song)
 }

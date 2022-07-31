@@ -8,11 +8,11 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import ru.viafanasyev.guitarsongbook.domain.LocalSongDao
 import ru.viafanasyev.guitarsongbook.domain.common.Database
-import ru.viafanasyev.guitarsongbook.domain.entities.Song
+import ru.viafanasyev.guitarsongbook.domain.local.entities.LocalSong
 import ru.viafanasyev.guitarsongbook.utils.SingletonHolder2
 
-@androidx.room.Database(entities = [Song::class], version = 1, exportSchema = false)
-abstract class LocalDatabase : RoomDatabase(), Database {
+@androidx.room.Database(entities = [LocalSong::class], version = 1, exportSchema = false)
+abstract class LocalDatabase : RoomDatabase(), Database<LocalSong> {
     abstract override fun songDao(): LocalSongDao
 
     companion object : SingletonHolder2<LocalDatabase, Context, CoroutineScope>({ context, scope ->
@@ -35,7 +35,7 @@ abstract class LocalDatabase : RoomDatabase(), Database {
                     val songDao = database.songDao()
                     songDao.insertAll(
                         *(0..30).map {
-                            Song(it, "Название песни $it", "Автор $it", true)
+                            LocalSong("Название песни $it", "Автор $it", true, 0)
                         }.toTypedArray()
                     )
                 }

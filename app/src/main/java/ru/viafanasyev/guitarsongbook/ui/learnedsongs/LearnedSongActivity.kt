@@ -3,7 +3,7 @@ package ru.viafanasyev.guitarsongbook.ui.learnedsongs
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import ru.viafanasyev.guitarsongbook.R
-import ru.viafanasyev.guitarsongbook.domain.entities.Song
+import ru.viafanasyev.guitarsongbook.domain.common.entities.Song
 import ru.viafanasyev.guitarsongbook.utils.Extras
 
 class LearnedSongActivity : AppCompatActivity() {

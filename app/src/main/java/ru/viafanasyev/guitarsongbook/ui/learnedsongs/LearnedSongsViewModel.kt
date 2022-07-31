@@ -10,7 +10,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import ru.viafanasyev.guitarsongbook.domain.common.SongRepository
-import ru.viafanasyev.guitarsongbook.domain.entities.Song
+import ru.viafanasyev.guitarsongbook.domain.common.entities.Song
 
 class LearnedSongsViewModel(private val repository: SongRepository) : ViewModel() {
     val allLearned: LiveData<List<Song>> = repository.allLearned.asLiveData()

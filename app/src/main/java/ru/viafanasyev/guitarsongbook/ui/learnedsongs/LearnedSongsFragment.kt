@@ -13,7 +13,7 @@ import ru.viafanasyev.guitarsongbook.R
 import ru.viafanasyev.guitarsongbook.adapter.LearnedSongsRecyclerAdapter
 import ru.viafanasyev.guitarsongbook.databinding.FragmentLearnedSongsBinding
 import ru.viafanasyev.guitarsongbook.domain.DataAccessService
-import ru.viafanasyev.guitarsongbook.domain.entities.Song
+import ru.viafanasyev.guitarsongbook.domain.common.entities.Song
 import ru.viafanasyev.guitarsongbook.utils.Extras
 
 class LearnedSongsFragment : Fragment() {
@@ -44,14 +44,8 @@ class LearnedSongsFragment : Fragment() {
         val addLearnedSongActivityLauncher =
             registerForActivityResult(AddLearnedSongResultContract(), this::onSongAdd)
 
-        val fab = binding.fabAddLearnedSong
-        fab.setOnClickListener { button ->
-            val nextId = learnedSongsViewModel.allLearned.value?.size
-            if (nextId == null) {
-                Snackbar.make(button, "Can't add new song: id is null", Snackbar.LENGTH_LONG).show()
-            } else {
-                addLearnedSongActivityLauncher.launch(nextId)
-            }
+        binding.fabAddLearnedSong.setOnClickListener {
+            addLearnedSongActivityLauncher.launch(null)
         }
 
         return binding.root

@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import ru.viafanasyev.guitarsongbook.R
-import ru.viafanasyev.guitarsongbook.domain.entities.Song
+import ru.viafanasyev.guitarsongbook.domain.common.entities.Song
 
 class LearnedSongsRecyclerAdapter(
     private val onSongClickListener: (song: Song, position: Int) -> Unit = { _, _ -> },
