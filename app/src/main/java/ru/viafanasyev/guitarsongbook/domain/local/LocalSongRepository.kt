@@ -1,8 +1,10 @@
-package ru.viafanasyev.guitarsongbook.domain.common
+package ru.viafanasyev.guitarsongbook.domain.local
 
 import androidx.annotation.WorkerThread
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import ru.viafanasyev.guitarsongbook.domain.common.SongDao
+import ru.viafanasyev.guitarsongbook.domain.common.SongRepository
 import ru.viafanasyev.guitarsongbook.domain.common.entities.ExtensionEntity
 import ru.viafanasyev.guitarsongbook.domain.common.entities.Song
 import ru.viafanasyev.guitarsongbook.domain.local.entities.LocalSong

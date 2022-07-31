@@ -4,7 +4,7 @@ import android.content.Context
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 import ru.viafanasyev.guitarsongbook.domain.common.Database
-import ru.viafanasyev.guitarsongbook.domain.common.LocalSongRepository
+import ru.viafanasyev.guitarsongbook.domain.local.LocalSongRepository
 import ru.viafanasyev.guitarsongbook.domain.common.SongRepository
 import ru.viafanasyev.guitarsongbook.domain.local.LocalDatabase
 import ru.viafanasyev.guitarsongbook.utils.Properties

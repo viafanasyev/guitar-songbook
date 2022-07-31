@@ -31,6 +31,6 @@
         app:pressedTranslationZ="12dp"
         app:borderWidth="0dp"
         android:src="@drawable/ic_add_black_24dp"
-        android:contentDescription="@string/add_learned_song" />
+        android:contentDescription="@string/content_description_add_learned_song" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

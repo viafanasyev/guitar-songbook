@@ -9,8 +9,8 @@
     <!-- Messages -->
     <string name="message_added_learned_song">Добавлена песня \'%1$s — %2$s\'</string>
 
-    <!-- Content description -->
-    <string name="add_learned_song">Добавить изученную песню</string>
+    <!-- Content descriptions -->
+    <string name="content_description_add_learned_song">Добавить изученную песню</string>
 
     <!-- Hints -->
     <string name="hint_song_title">Название песни</string>

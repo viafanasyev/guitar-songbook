@@ -6,7 +6,6 @@ import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
-import ru.viafanasyev.guitarsongbook.domain.LocalSongDao
 import ru.viafanasyev.guitarsongbook.domain.common.Database
 import ru.viafanasyev.guitarsongbook.domain.local.entities.LocalSong
 import ru.viafanasyev.guitarsongbook.utils.SingletonHolder2

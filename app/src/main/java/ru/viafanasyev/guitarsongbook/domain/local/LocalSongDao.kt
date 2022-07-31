@@ -1,4 +1,4 @@
-package ru.viafanasyev.guitarsongbook.domain
+package ru.viafanasyev.guitarsongbook.domain.local
 
 import androidx.room.Dao
 import androidx.room.Delete
