@@ -16,14 +16,20 @@
         <activity
             android:name=".ui.learnedsongs.AddLearnedSongActivity"
             android:exported="false"
-            android:label="@string/title_add_learned_song" />
+            android:label="@string/title_add_learned_song"
+            android:screenOrientation="userPortrait"
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".ui.learnedsongs.LearnedSongActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="userPortrait"
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:label="@string/app_name">
+            android:screenOrientation="userPortrait"
+            android:label="@string/app_name"
+            tools:ignore="LockedOrientationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
