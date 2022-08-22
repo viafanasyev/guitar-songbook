@@ -27,8 +27,8 @@ class LearnedSongsRecyclerAdapter(
         private val button2: Button = binding.songButton2
 
         fun bind(song: Song, position: Int, actionListener: SwipeLayoutActionListener<Song>) {
-            root.onOpen = actionListener::onItemOpen
-            root.onClose = actionListener::onItemClose
+            root.onOpen = { actionListener.onItemOpen(root) }
+            root.onClose = { actionListener.onItemClose(root) }
             songTitleTextView.text = song.title
             songAuthorTextView.text = song.author
             songItem.setOnClickListener {

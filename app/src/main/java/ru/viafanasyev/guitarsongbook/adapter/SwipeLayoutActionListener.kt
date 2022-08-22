@@ -5,7 +5,7 @@ import ru.viafanasyev.guitarsongbook.layouts.SwipeRevealLayout
 
 class SwipeLayoutActionListener<T>(
     private val onItemClick: (item: T, position: Int) -> Unit = { _, _ -> }
-) : ActionListener<T>() {
+) : ActionListener<T, SwipeRevealLayout>() {
     private var currentlyOpenedItemView: SwipeRevealLayout? = null
 
     override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {

@@ -76,8 +76,8 @@ class SwipeRevealLayout : ViewGroup {
     private var dragDist = 0f
     private var prevX = -1f
 
-    var onOpen: ((SwipeRevealLayout) -> Unit)? = null
-    var onClose: ((SwipeRevealLayout) -> Unit)? = null
+    var onOpen: (() -> Unit)? = null
+    var onClose: (() -> Unit)? = null
 
     constructor(context: Context) : this(context, null)
 
@@ -289,7 +289,7 @@ class SwipeRevealLayout : ViewGroup {
 
         isOpen = true
         drawOpen(animation)
-        onOpen?.invoke(this)
+        onOpen?.invoke()
     }
 
     private fun drawOpen(animation: Boolean) {
@@ -323,7 +323,7 @@ class SwipeRevealLayout : ViewGroup {
 
         isOpen = false
         drawClose(animation)
-        onClose?.invoke(this)
+        onClose?.invoke()
     }
 
     private fun drawClose(animation: Boolean) {
