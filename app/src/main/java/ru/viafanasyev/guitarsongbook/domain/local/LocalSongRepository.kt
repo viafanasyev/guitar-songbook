@@ -26,7 +26,7 @@ class LocalSongRepository(private val songDao: SongDao<LocalSong>) : SongReposit
     }
 
     @WorkerThread
-    override suspend fun delete(user: Song) {
-        songDao.delete(user.asLocal())
+    override suspend fun delete(song: Song) {
+        songDao.delete(song.asLocal())
     }
 }

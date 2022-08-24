@@ -20,5 +20,5 @@ interface LocalSongDao : SongDao<LocalSong> {
     override fun insertAll(vararg songs: LocalSong)
 
     @Delete
-    override fun delete(user: LocalSong)
+    override fun delete(song: LocalSong)
 }

@@ -8,5 +8,5 @@ interface SongDao<T : ExtensionEntity<Song>> {
     fun getAllLearned(): Flow<List<T>>
     fun getById(songId: Int): T
     fun insertAll(vararg songs: T)
-    fun delete(user: T)
+    fun delete(song: T)
 }

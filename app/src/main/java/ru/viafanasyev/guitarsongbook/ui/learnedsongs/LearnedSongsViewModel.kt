@@ -27,8 +27,8 @@ class LearnedSongsViewModel(private val repository: SongRepository) : ViewModel(
         repository.insertAll(*songs)
     }
 
-    fun delete(user: Song) = viewModelScope.launch(Dispatchers.IO) {
-        repository.delete(user)
+    fun delete(song: Song) = viewModelScope.launch(Dispatchers.IO) {
+        repository.delete(song)
     }
 
     class Factory(private val repository: SongRepository) : ViewModelProvider.Factory {
