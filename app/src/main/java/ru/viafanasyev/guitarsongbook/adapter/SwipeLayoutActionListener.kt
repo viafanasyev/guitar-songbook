@@ -4,7 +4,8 @@ import androidx.recyclerview.widget.RecyclerView
 import ru.viafanasyev.guitarsongbook.layouts.SwipeRevealLayout
 
 class SwipeLayoutActionListener<T>(
-    private val onItemClick: (item: T, position: Int) -> Unit = { _, _ -> }
+    private val onItemClick: (item: T, position: Int) -> Unit = { _, _ -> },
+    private val onItemDelete: (item: T, position: Int) -> Unit = { _, _ -> },
 ) : ActionListener<T, SwipeRevealLayout>() {
     private var currentlyOpenedItemView: SwipeRevealLayout? = null
 
@@ -29,5 +30,11 @@ class SwipeLayoutActionListener<T>(
         currentlyOpenedItemView?.close(true)
         currentlyOpenedItemView = null
         onItemClick(item, position)
+    }
+
+    override fun onItemDelete(itemView: SwipeRevealLayout, item: T, position: Int) {
+        currentlyOpenedItemView?.close(true)
+        currentlyOpenedItemView = null
+        onItemDelete(item, position)
     }
 }

@@ -1,5 +1,6 @@
 package ru.viafanasyev.guitarsongbook.ui.learnedsongs
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -37,7 +38,10 @@ class LearnedSongsFragment : Fragment() {
 
         val learnedSongsRecyclerView = binding.learnedSongsRecyclerView
         learnedSongsRecyclerView.layoutManager = LinearLayoutManager(context)
-        learnedSongsRecyclerView.adapter  = LearnedSongsRecyclerAdapter(::onSongClick).apply {
+        learnedSongsRecyclerView.adapter  = LearnedSongsRecyclerAdapter(
+            ::onSongClick,
+            ::onSongDelete,
+        ).apply {
             learnedSongsViewModel.allLearned.observe(viewLifecycleOwner, ::submitList)
         }
 
@@ -55,6 +59,17 @@ class LearnedSongsFragment : Fragment() {
         val intent = Intent(activity, LearnedSongActivity::class.java)
         intent.putExtra(Extras.SONG, song)
         startActivity(intent)
+    }
+
+    private fun onSongDelete(song: Song, position: Int) {
+        AlertDialog.Builder(context)
+            .setTitle(R.string.dialog_title_delete_learned_song)
+            .setMessage(getString(R.string.dialog_message_delete_learned_song, song.author, song.title))
+            .setPositiveButton(android.R.string.ok) { _, _ ->
+                learnedSongsViewModel.delete(song)
+            }
+            .setNegativeButton(android.R.string.cancel, null)
+            .show()
     }
 
     private fun onSongAdd(song: Song?) {

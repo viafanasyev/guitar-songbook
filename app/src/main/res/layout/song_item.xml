@@ -54,11 +54,12 @@
             style="?android:attr/buttonBarButtonStyle" />
 
         <Button
-            android:id="@+id/songButton2"
-            android:layout_width="70dp"
+            android:id="@+id/buttonDeleteSong"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginEnd="5dp"
-            android:text="B2" />
+            android:text="@string/button_delete"
+            style="?android:attr/buttonBarButtonStyle" />
     </LinearLayout>
 
 </ru.viafanasyev.guitarsongbook.layouts.SwipeRevealLayout>
