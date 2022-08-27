@@ -109,7 +109,7 @@ class SwipeRevealLayout : ViewGroup {
         gestureDetector.onTouchEvent(ev)
         accumulateDragDist(ev)
 
-        val couldBecomeClick = couldBecomeClick(ev)
+        val couldBecomeClick = couldBecomeClick()
         val settling = dragHelper.viewDragState == ViewDragHelper.STATE_SETTLING
         val idleAfterScrolled = (dragHelper.viewDragState == ViewDragHelper.STATE_IDLE && isScrolling)
 
@@ -283,10 +283,6 @@ class SwipeRevealLayout : ViewGroup {
      * Open the panel to show the secondary view
      */
     fun open(animation: Boolean) {
-        if (isOpen) {
-            return
-        }
-
         isOpen = true
         drawOpen(animation)
         onOpen?.invoke()
@@ -317,10 +313,6 @@ class SwipeRevealLayout : ViewGroup {
      * Close the panel to hide the secondary view
      */
     fun close(animation: Boolean) {
-        if (!isOpen) {
-            return
-        }
-
         isOpen = false
         drawClose(animation)
         onClose?.invoke()
@@ -398,18 +390,8 @@ class SwipeRevealLayout : ViewGroup {
         )
     }
 
-    private fun couldBecomeClick(ev: MotionEvent): Boolean {
-        return isInMainView(ev) && !shouldInitiateDrag()
-    }
-
-    private fun isInMainView(ev: MotionEvent): Boolean {
-        check(childCount == 2) { "Layout should have exactly two children" }
-
-        val x = ev.x
-        val y = ev.y
-        val withinVertical = mainView.top <= y && y <= mainView.bottom
-        val withinHorizontal = mainView.left <= x && x <= mainView.right
-        return withinVertical && withinHorizontal
+    private fun couldBecomeClick(): Boolean {
+        return !shouldInitiateDrag()
     }
 
     private fun shouldInitiateDrag(): Boolean {
