@@ -14,5 +14,8 @@ interface SongRepository {
     suspend fun insertAll(vararg songs: Song)
 
     @WorkerThread
+    suspend fun update(song: Song)
+
+    @WorkerThread
     suspend fun delete(song: Song)
 }

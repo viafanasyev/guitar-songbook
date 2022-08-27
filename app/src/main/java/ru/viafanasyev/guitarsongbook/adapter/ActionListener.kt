@@ -8,5 +8,6 @@ abstract class ActionListener<T, V> : RecyclerView.OnScrollListener() {
     abstract fun onItemOpen(itemView: V)
     abstract fun onItemClose(itemView: V)
     abstract fun onItemClick(itemView: V, item: T, position: Int)
+    abstract fun onItemEdit(itemView: V, item: T, position: Int)
     abstract fun onItemDelete(itemView: V, item: T, position: Int)
 }

@@ -29,6 +29,9 @@ class LearnedSongsFragment : Fragment() {
         LearnedSongsViewModel.Factory(DataAccessService.getInstance(requireContext()).songRepository)
     }
 
+    private val editLearnedSongActivityLauncher =
+        registerForActivityResult(EditLearnedSongResultContract(), this::onSongEdit)
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -39,8 +42,9 @@ class LearnedSongsFragment : Fragment() {
         val learnedSongsRecyclerView = binding.learnedSongsRecyclerView
         learnedSongsRecyclerView.layoutManager = LinearLayoutManager(context)
         learnedSongsRecyclerView.adapter  = LearnedSongsRecyclerAdapter(
-            ::onSongClick,
-            ::onSongDelete,
+            onSongClickListener = ::onSongClick,
+            onSongEdit = ::onSongEditRequest,
+            onSongDelete = ::onSongDelete,
         ).apply {
             learnedSongsViewModel.allLearned.observe(viewLifecycleOwner, ::submitList)
         }
@@ -59,6 +63,16 @@ class LearnedSongsFragment : Fragment() {
         val intent = Intent(activity, LearnedSongActivity::class.java)
         intent.putExtra(Extras.SONG, song)
         startActivity(intent)
+    }
+
+    private fun onSongEditRequest(song: Song, position: Int) {
+        editLearnedSongActivityLauncher.launch(song)
+    }
+
+    private fun onSongEdit(song: Song?) {
+        if (song != null) {
+            learnedSongsViewModel.update(song)
+        }
     }
 
     private fun onSongDelete(song: Song, position: Int) {

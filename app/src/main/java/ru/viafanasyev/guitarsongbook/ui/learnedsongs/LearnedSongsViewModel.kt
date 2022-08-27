@@ -27,6 +27,10 @@ class LearnedSongsViewModel(private val repository: SongRepository) : ViewModel(
         repository.insertAll(*songs)
     }
 
+    fun update(song: Song) = viewModelScope.launch(Dispatchers.IO) {
+        repository.update(song)
+    }
+
     fun delete(song: Song) = viewModelScope.launch(Dispatchers.IO) {
         repository.delete(song)
     }

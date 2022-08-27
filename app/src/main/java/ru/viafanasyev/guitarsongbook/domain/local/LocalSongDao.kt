@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
+import androidx.room.Update
 import kotlinx.coroutines.flow.Flow
 import ru.viafanasyev.guitarsongbook.domain.common.SongDao
 import ru.viafanasyev.guitarsongbook.domain.local.entities.LocalSong
@@ -18,6 +19,9 @@ interface LocalSongDao : SongDao<LocalSong> {
 
     @Insert
     override fun insertAll(vararg songs: LocalSong)
+
+    @Update
+    override fun update(song: LocalSong)
 
     @Delete
     override fun delete(song: LocalSong)

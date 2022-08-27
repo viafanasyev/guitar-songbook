@@ -26,6 +26,11 @@ class LocalSongRepository(private val songDao: SongDao<LocalSong>) : SongReposit
     }
 
     @WorkerThread
+    override suspend fun update(song: Song) {
+        songDao.update(song.asLocal())
+    }
+
+    @WorkerThread
     override suspend fun delete(song: Song) {
         songDao.delete(song.asLocal())
     }
