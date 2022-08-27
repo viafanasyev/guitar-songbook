@@ -9,7 +9,7 @@ import ru.viafanasyev.guitarsongbook.utils.Extras
 
 class EditLearnedSongResultContract : ActivityResultContract<Song, Song?>() {
     override fun createIntent(context: Context, input: Song): Intent {
-        return Intent(context, EditLearnedSongActivity::class.java)
+        return Intent(context, AddAndEditLearnedSongActivity::class.java)
             .putExtra(Extras.SONG, input)
     }
 

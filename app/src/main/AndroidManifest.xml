@@ -14,13 +14,7 @@
         android:theme="@style/Theme.GuitarSongbook"
         tools:targetApi="31">
         <activity
-            android:name=".ui.learnedsongs.AddLearnedSongActivity"
-            android:exported="false"
-            android:label="@string/title_add_learned_song"
-            android:screenOrientation="userPortrait"
-            tools:ignore="LockedOrientationActivity" />
-        <activity
-            android:name=".ui.learnedsongs.EditLearnedSongActivity"
+            android:name=".ui.learnedsongs.AddAndEditLearnedSongActivity"
             android:exported="false"
             android:label="@string/title_edit_learned_song"
             android:screenOrientation="userPortrait"

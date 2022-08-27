@@ -10,7 +10,7 @@ import ru.viafanasyev.guitarsongbook.utils.Extras
 class AddLearnedSongResultContract : ActivityResultContract<Unit?, Song?>() {
     override fun createIntent(context: Context, input: Unit?): Intent {
         require(input == null)
-        return Intent(context, AddLearnedSongActivity::class.java)
+        return Intent(context, AddAndEditLearnedSongActivity::class.java)
     }
 
     override fun parseResult(resultCode: Int, intent: Intent?): Song? {

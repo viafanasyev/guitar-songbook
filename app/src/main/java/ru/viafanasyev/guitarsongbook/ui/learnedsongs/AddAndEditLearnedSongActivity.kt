@@ -5,21 +5,35 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
 import ru.viafanasyev.guitarsongbook.R
-import ru.viafanasyev.guitarsongbook.databinding.ActivityAddLearnedSongBinding
+import ru.viafanasyev.guitarsongbook.databinding.ActivityAddAndEditLearnedSongBinding
 import ru.viafanasyev.guitarsongbook.domain.common.entities.Song
 import ru.viafanasyev.guitarsongbook.utils.Extras
 import ru.viafanasyev.guitarsongbook.utils.validateInput
 
-class AddLearnedSongActivity : AppCompatActivity() {
+class AddAndEditLearnedSongActivity : AppCompatActivity() {
 
-    private var _binding: ActivityAddLearnedSongBinding? = null
+    private var _binding: ActivityAddAndEditLearnedSongBinding? = null
 
     private val binding get() = _binding!!
 
+    private var editedSongId: Int? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        _binding = ActivityAddLearnedSongBinding.inflate(layoutInflater)
+        _binding = ActivityAddAndEditLearnedSongBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val song = intent.getParcelableExtra<Song>(Extras.SONG)
+        if (song != null) {
+            // Song is edited
+            editedSongId = song.id
+            binding.learnedSongTitleEditText.setText(song.title)
+            binding.learnedSongAuthorEditText.setText(song.author)
+            title = getString(R.string.title_edit_learned_song)
+        } else {
+            // New song is added
+            title = getString(R.string.title_add_learned_song)
+        }
 
         binding.learnedSongTitleEditText.addTextChangedListener(afterTextChanged = {
             binding.learnedSongTitleInputLayout.error = null
@@ -28,10 +42,10 @@ class AddLearnedSongActivity : AppCompatActivity() {
             binding.learnedSongAuthorInputLayout.error = null
         })
 
-        binding.addLearnedSongButton.setOnClickListener { onAddButtonClick() }
+        binding.confirmButton.setOnClickListener { onConfirmButtonClick() }
     }
 
-    private fun onAddButtonClick() {
+    private fun onConfirmButtonClick() {
         createSongOrNull()?.let { song ->
             val intent = Intent().putExtra(Extras.SONG, song)
             setResult(RESULT_OK, intent)
@@ -57,7 +71,13 @@ class AddLearnedSongActivity : AppCompatActivity() {
         return if (songTitle == null || songAuthor == null) {
             null
         } else {
-            Song(songTitle, songAuthor, true)
+            if (editedSongId == null) {
+                // New song is created
+                Song(songTitle, songAuthor, true)
+            } else {
+                // Song is edited
+                Song(songTitle, songAuthor, true, editedSongId!!)
+            }
         }
     }
 
