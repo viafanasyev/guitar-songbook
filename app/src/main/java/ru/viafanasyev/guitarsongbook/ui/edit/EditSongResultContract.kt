@@ -1,4 +1,4 @@
-package ru.viafanasyev.guitarsongbook.ui.learnedsongs
+package ru.viafanasyev.guitarsongbook.ui.edit
 
 import android.app.Activity
 import android.content.Context
@@ -7,10 +7,11 @@ import androidx.activity.result.contract.ActivityResultContract
 import ru.viafanasyev.guitarsongbook.domain.common.entities.Song
 import ru.viafanasyev.guitarsongbook.utils.Extras
 
-class EditLearnedSongResultContract : ActivityResultContract<Song, Song?>() {
+class EditSongResultContract : ActivityResultContract<Song, Song?>() {
     override fun createIntent(context: Context, input: Song): Intent {
-        return Intent(context, AddAndEditLearnedSongActivity::class.java)
+        return Intent(context, AddAndEditSongActivity::class.java)
             .putExtra(Extras.SONG, input)
+            .putExtra(Extras.IS_LEARNED, input.isLearned)
     }
 
     override fun parseResult(resultCode: Int, intent: Intent?): Song? {

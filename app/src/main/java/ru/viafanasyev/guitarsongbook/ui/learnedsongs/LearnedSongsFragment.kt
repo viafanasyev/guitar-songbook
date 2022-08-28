@@ -15,6 +15,8 @@ import ru.viafanasyev.guitarsongbook.adapter.LearnedSongsRecyclerAdapter
 import ru.viafanasyev.guitarsongbook.databinding.FragmentLearnedSongsBinding
 import ru.viafanasyev.guitarsongbook.domain.DataAccessService
 import ru.viafanasyev.guitarsongbook.domain.common.entities.Song
+import ru.viafanasyev.guitarsongbook.ui.edit.AddSongResultContract
+import ru.viafanasyev.guitarsongbook.ui.edit.EditSongResultContract
 import ru.viafanasyev.guitarsongbook.utils.Extras
 
 class LearnedSongsFragment : Fragment() {
@@ -29,8 +31,8 @@ class LearnedSongsFragment : Fragment() {
         LearnedSongsViewModel.Factory(DataAccessService.getInstance(requireContext()).songRepository)
     }
 
-    private val editLearnedSongActivityLauncher =
-        registerForActivityResult(EditLearnedSongResultContract(), this::onSongEdit)
+    private val editSongActivityLauncher =
+        registerForActivityResult(EditSongResultContract(), this::onSongEdit)
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -49,11 +51,11 @@ class LearnedSongsFragment : Fragment() {
             learnedSongsViewModel.allLearned.observe(viewLifecycleOwner, ::submitList)
         }
 
-        val addLearnedSongActivityLauncher =
-            registerForActivityResult(AddLearnedSongResultContract(), this::onSongAdd)
+        val addSongActivityLauncher =
+            registerForActivityResult(AddSongResultContract(), this::onSongAdd)
 
         binding.fabAddLearnedSong.setOnClickListener {
-            addLearnedSongActivityLauncher.launch(null)
+            addSongActivityLauncher.launch(true)
         }
 
         return binding.root
@@ -66,7 +68,7 @@ class LearnedSongsFragment : Fragment() {
     }
 
     private fun onSongEditRequest(song: Song, position: Int) {
-        editLearnedSongActivityLauncher.launch(song)
+        editSongActivityLauncher.launch(song)
     }
 
     private fun onSongEdit(song: Song?) {

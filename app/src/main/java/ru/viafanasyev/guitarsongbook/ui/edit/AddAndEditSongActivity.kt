@@ -1,40 +1,51 @@
-package ru.viafanasyev.guitarsongbook.ui.learnedsongs
+package ru.viafanasyev.guitarsongbook.ui.edit
 
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
 import ru.viafanasyev.guitarsongbook.R
-import ru.viafanasyev.guitarsongbook.databinding.ActivityAddAndEditLearnedSongBinding
+import ru.viafanasyev.guitarsongbook.databinding.ActivityAddAndEditSongBinding
 import ru.viafanasyev.guitarsongbook.domain.common.entities.Song
 import ru.viafanasyev.guitarsongbook.utils.Extras
 import ru.viafanasyev.guitarsongbook.utils.validateInput
+import kotlin.properties.Delegates
 
-class AddAndEditLearnedSongActivity : AppCompatActivity() {
+class AddAndEditSongActivity : AppCompatActivity() {
 
-    private var _binding: ActivityAddAndEditLearnedSongBinding? = null
+    private var _binding: ActivityAddAndEditSongBinding? = null
 
     private val binding get() = _binding!!
 
     private var editedSongId: Int? = null
 
+    private var isLearned: Boolean by Delegates.notNull<Boolean>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        _binding = ActivityAddAndEditLearnedSongBinding.inflate(layoutInflater)
+        _binding = ActivityAddAndEditSongBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         intent.getParcelableExtra<Song>(Extras.SONG)?.let { song ->
             // Song is edited
             editedSongId = song.id
-            binding.learnedSongTitleEditText.setText(song.title)
-            binding.learnedSongAuthorEditText.setText(song.author)
+            binding.songTitleEditText.setText(song.title)
+            binding.songAuthorEditText.setText(song.author)
         }
 
-        binding.learnedSongTitleEditText.addTextChangedListener(afterTextChanged = {
-            binding.learnedSongTitleInputLayout.error = null
+        if (!intent.hasExtra(Extras.IS_LEARNED)) {
+            setResult(RESULT_CANCELED)
+            finish()
+            return
+        }
+
+        isLearned = intent.getBooleanExtra(Extras.IS_LEARNED, false)
+
+        binding.songTitleEditText.addTextChangedListener(afterTextChanged = {
+            binding.songTitleInputLayout.error = null
         })
-        binding.learnedSongAuthorEditText.addTextChangedListener(afterTextChanged = {
-            binding.learnedSongAuthorInputLayout.error = null
+        binding.songAuthorEditText.addTextChangedListener(afterTextChanged = {
+            binding.songAuthorInputLayout.error = null
         })
 
         binding.confirmButton.setOnClickListener { onConfirmButtonClick() }
@@ -50,17 +61,17 @@ class AddAndEditLearnedSongActivity : AppCompatActivity() {
 
     private fun createSongOrNull(): Song? {
         val songTitle = validateInput(
-            binding.learnedSongTitleEditText.text.toString(),
+            binding.songTitleEditText.text.toString(),
             String::isNotBlank,
-            { binding.learnedSongTitleInputLayout.error = getString(R.string.error_song_title_blank) },
-            { binding.learnedSongTitleInputLayout.error = null }
+            { binding.songTitleInputLayout.error = getString(R.string.error_song_title_blank) },
+            { binding.songTitleInputLayout.error = null }
         )
 
         val songAuthor = validateInput(
-            binding.learnedSongAuthorEditText.text.toString(),
+            binding.songAuthorEditText.text.toString(),
             String::isNotBlank,
-            { binding.learnedSongAuthorInputLayout.error = getString(R.string.error_song_author_blank) },
-            { binding.learnedSongAuthorInputLayout.error = null }
+            { binding.songAuthorInputLayout.error = getString(R.string.error_song_author_blank) },
+            { binding.songAuthorInputLayout.error = null }
         )
 
         return if (songTitle == null || songAuthor == null) {
@@ -68,10 +79,10 @@ class AddAndEditLearnedSongActivity : AppCompatActivity() {
         } else {
             if (editedSongId == null) {
                 // New song is created
-                Song(songTitle, songAuthor, true)
+                Song(songTitle, songAuthor, isLearned)
             } else {
                 // Song is edited
-                Song(songTitle, songAuthor, true, editedSongId!!)
+                Song(songTitle, songAuthor, isLearned, editedSongId!!)
             }
         }
     }
