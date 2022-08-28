@@ -18,10 +18,30 @@ class LearnedSongsRecyclerAdapter(
     onSongDelete: (song: Song, position: Int) -> Unit = { _, _, -> },
 ) : ListAdapter<Song, LearnedSongsRecyclerAdapter.LearnedSongViewHolder>(DIFF_CALLBACK) {
 
-    private val actionListener: SwipeLayoutActionListener<Song> = SwipeLayoutActionListener(
+    class LearnedSongsActionListener(
+        onSongClickListener: (song: Song, position: Int) -> Unit = { _, _ -> },
+        onSongEdit: (song: Song, position: Int) -> Unit = { _, _ -> },
+        onSongDelete: (song: Song, position: Int) -> Unit = { _, _ -> },
+    ) : SwipeLayoutActionListener<Song, LearnedSongsActionListener.ActionType>(
         onItemClick = onSongClickListener,
-        onItemEdit = onSongEdit,
-        onItemDelete = onSongDelete,
+        onItemButtonClick = { item, position, actionType ->
+            when (actionType) {
+                ActionType.EDIT -> onSongEdit(item, position)
+                ActionType.DELETE -> onSongDelete(item, position)
+                else -> throw UnsupportedOperationException("Unknown action type $actionType")
+            }
+        }
+    ) {
+        enum class ActionType {
+            EDIT,
+            DELETE,
+        }
+    }
+
+    private val actionListener = LearnedSongsActionListener(
+        onSongClickListener = onSongClickListener,
+        onSongEdit = onSongEdit,
+        onSongDelete = onSongDelete,
     )
 
     class LearnedSongViewHolder(private val binding: SongItemBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -32,7 +52,7 @@ class LearnedSongsRecyclerAdapter(
         private val buttonEdit: Button = binding.buttonEditSong
         private val buttonDelete: Button = binding.buttonDeleteSong
 
-        fun bind(song: Song, position: Int, actionListener: SwipeLayoutActionListener<Song>) {
+        fun bind(song: Song, position: Int, actionListener: LearnedSongsActionListener) {
             root.onOpen = { actionListener.onItemOpen(root) }
             root.onClose = { actionListener.onItemClose(root) }
             songTitleTextView.text = song.title
@@ -41,10 +61,10 @@ class LearnedSongsRecyclerAdapter(
                 actionListener.onItemClick(root, song, position)
             }
             buttonEdit.setOnClickListener {
-                actionListener.onItemEdit(root, song, position)
+                actionListener.onItemButtonClick(root, song, position, LearnedSongsActionListener.ActionType.EDIT)
             }
             buttonDelete.setOnClickListener {
-                actionListener.onItemDelete(root, song, position)
+                actionListener.onItemButtonClick(root, song, position, LearnedSongsActionListener.ActionType.DELETE)
             }
         }
     }

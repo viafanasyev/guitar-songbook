@@ -3,11 +3,10 @@ package ru.viafanasyev.guitarsongbook.adapter
 import androidx.recyclerview.widget.RecyclerView
 import ru.viafanasyev.guitarsongbook.layouts.SwipeRevealLayout
 
-class SwipeLayoutActionListener<T>(
+open class SwipeLayoutActionListener<T, AT>(
     private val onItemClick: (item: T, position: Int) -> Unit = { _, _ -> },
-    private val onItemEdit: (item: T, position: Int) -> Unit = { _, _ -> },
-    private val onItemDelete: (item: T, position: Int) -> Unit = { _, _ -> },
-) : ActionListener<T, SwipeRevealLayout>() {
+    private val onItemButtonClick: (item: T, position: Int, actionType: AT) -> Unit = { _, _, _ -> }
+) : ActionListener<T, SwipeRevealLayout, AT>() {
     private var currentlyOpenedItemView: SwipeRevealLayout? = null
 
     override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
@@ -33,15 +32,14 @@ class SwipeLayoutActionListener<T>(
         onItemClick(item, position)
     }
 
-    override fun onItemEdit(itemView: SwipeRevealLayout, item: T, position: Int) {
+    override fun onItemButtonClick(
+        itemView: SwipeRevealLayout,
+        item: T,
+        position: Int,
+        actionType: AT
+    ) {
         currentlyOpenedItemView?.close(true)
         currentlyOpenedItemView = null
-        onItemEdit(item, position)
-    }
-
-    override fun onItemDelete(itemView: SwipeRevealLayout, item: T, position: Int) {
-        currentlyOpenedItemView?.close(true)
-        currentlyOpenedItemView = null
-        onItemDelete(item, position)
+        onItemButtonClick(item, position, actionType)
     }
 }
