@@ -1,4 +1,4 @@
-package ru.viafanasyev.guitarsongbook.ui.learnedsongs
+package ru.viafanasyev.guitarsongbook.ui.notlearnedsongs
 
 import android.app.AlertDialog
 import android.content.Intent
@@ -11,8 +11,8 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import ru.viafanasyev.guitarsongbook.R
-import ru.viafanasyev.guitarsongbook.adapter.LearnedSongsRecyclerAdapter
-import ru.viafanasyev.guitarsongbook.databinding.FragmentLearnedSongsBinding
+import ru.viafanasyev.guitarsongbook.adapter.NotLearnedSongsRecyclerAdapter
+import ru.viafanasyev.guitarsongbook.databinding.FragmentNotLearnedSongsBinding
 import ru.viafanasyev.guitarsongbook.domain.DataAccessService
 import ru.viafanasyev.guitarsongbook.domain.common.entities.Song
 import ru.viafanasyev.guitarsongbook.ui.detailed.SongActivity
@@ -20,16 +20,16 @@ import ru.viafanasyev.guitarsongbook.ui.edit.AddSongResultContract
 import ru.viafanasyev.guitarsongbook.ui.edit.EditSongResultContract
 import ru.viafanasyev.guitarsongbook.utils.Extras
 
-class LearnedSongsFragment : Fragment() {
+class NotLearnedSongsFragment : Fragment() {
 
-    private var _binding: FragmentLearnedSongsBinding? = null
+    private var _binding: FragmentNotLearnedSongsBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
 
-    private val learnedSongsViewModel: LearnedSongsViewModel by viewModels {
-        LearnedSongsViewModel.Factory(DataAccessService.getInstance(requireContext()).songRepository)
+    private val notLearnedSongsViewModel: NotLearnedSongsViewModel by viewModels {
+        NotLearnedSongsViewModel.Factory(DataAccessService.getInstance(requireContext()).songRepository)
     }
 
     private val editSongActivityLauncher =
@@ -40,23 +40,23 @@ class LearnedSongsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentLearnedSongsBinding.inflate(inflater, container, false)
+        _binding = FragmentNotLearnedSongsBinding.inflate(inflater, container, false)
 
-        val learnedSongsRecyclerView = binding.learnedSongsRecyclerView
-        learnedSongsRecyclerView.layoutManager = LinearLayoutManager(context)
-        learnedSongsRecyclerView.adapter  = LearnedSongsRecyclerAdapter(
+        val notLearnedSongsRecyclerView = binding.notLearnedSongsRecyclerView
+        notLearnedSongsRecyclerView.layoutManager = LinearLayoutManager(context)
+        notLearnedSongsRecyclerView.adapter  = NotLearnedSongsRecyclerAdapter(
             onSongClickListener = ::onSongClick,
             onSongEdit = ::onSongEditRequest,
             onSongDelete = ::onSongDelete,
         ).apply {
-            learnedSongsViewModel.allLearned.observe(viewLifecycleOwner, ::submitList)
+            notLearnedSongsViewModel.allNotLearned.observe(viewLifecycleOwner, ::submitList)
         }
 
         val addSongActivityLauncher =
             registerForActivityResult(AddSongResultContract(), this::onSongAdd)
 
-        binding.fabAddLearnedSong.setOnClickListener {
-            addSongActivityLauncher.launch(true)
+        binding.fabAddNotLearnedSong.setOnClickListener {
+            addSongActivityLauncher.launch(false)
         }
 
         return binding.root
@@ -74,7 +74,7 @@ class LearnedSongsFragment : Fragment() {
 
     private fun onSongEdit(song: Song?) {
         if (song != null) {
-            learnedSongsViewModel.update(song)
+            notLearnedSongsViewModel.update(song)
         }
     }
 
@@ -83,7 +83,7 @@ class LearnedSongsFragment : Fragment() {
             .setTitle(R.string.dialog_title_delete_song)
             .setMessage(getString(R.string.dialog_message_delete_song, song.author, song.title))
             .setPositiveButton(android.R.string.ok) { _, _ ->
-                learnedSongsViewModel.delete(song)
+                notLearnedSongsViewModel.delete(song)
             }
             .setNegativeButton(android.R.string.cancel, null)
             .show()
@@ -94,7 +94,7 @@ class LearnedSongsFragment : Fragment() {
             return
         }
 
-        learnedSongsViewModel.insertAll(song).invokeOnCompletion {
+        notLearnedSongsViewModel.insertAll(song).invokeOnCompletion {
             Snackbar.make(
                 binding.root,
                 getString(R.string.message_added_song, song.author, song.title),

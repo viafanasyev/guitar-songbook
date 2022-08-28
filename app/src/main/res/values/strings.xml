@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Guitar Songbook</string>
     <string name="title_learned_songs">Изученные песни</string>
-    <string name="title_dashboard">Dashboard</string>
+    <string name="title_not_learned_songs">Не изученные песни</string>
     <string name="title_notifications">Notifications</string>
     <string name="title_add_learned_song">Добавить изученную песню</string>
     <string name="title_edit_learned_song">Изменить изученную песню</string>
@@ -10,15 +10,15 @@
     <string name="button_confirm">Подтвердить</string>
 
     <!-- Messages -->
-    <string name="message_added_learned_song">Добавлена песня \'%1$s — %2$s\'</string>
+    <string name="message_added_song">Добавлена песня \'%1$s — %2$s\'</string>
     <string name="message_deleted_learned_song">Удалена песня \'%1$s — %2$s\'</string>
 
     <!-- Dialogs -->
-    <string name="dialog_title_delete_learned_song">Удалить песню</string>
-    <string name="dialog_message_delete_learned_song">Вы действительно хотите удалить песню \'%1$s — %2$s\'</string>
+    <string name="dialog_title_delete_song">Удалить песню</string>
+    <string name="dialog_message_delete_song">Вы действительно хотите удалить песню \'%1$s — %2$s\'</string>
 
     <!-- Content descriptions -->
-    <string name="content_description_add_learned_song">Добавить изученную песню</string>
+    <string name="content_description_add_song">Добавить песню</string>
 
     <!-- Hints -->
     <string name="hint_song_title">Название песни</string>

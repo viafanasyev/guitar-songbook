@@ -15,6 +15,10 @@ class LocalSongRepository(private val songDao: SongDao<LocalSong>) : SongReposit
         it.map(ExtensionEntity<Song>::asCommon)
     }
 
+    override val allNotLearned: Flow<List<Song>> = songDao.getAllNotLearned().map {
+        it.map(ExtensionEntity<Song>::asCommon)
+    }
+
     @WorkerThread
     override suspend fun getById(songId: Int): Song {
         return songDao.getById(songId).asCommon()

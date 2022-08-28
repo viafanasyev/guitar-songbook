@@ -6,6 +6,7 @@ import ru.viafanasyev.guitarsongbook.domain.common.entities.Song
 
 interface SongDao<T : ExtensionEntity<Song>> {
     fun getAllLearned(): Flow<List<T>>
+    fun getAllNotLearned(): Flow<List<T>>
     fun getById(songId: Int): T
     fun insertAll(vararg songs: T)
     fun update(song: T)

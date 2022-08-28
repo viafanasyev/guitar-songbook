@@ -7,6 +7,8 @@ import ru.viafanasyev.guitarsongbook.domain.common.entities.Song
 interface SongRepository {
     val allLearned: Flow<List<Song>>
 
+    val allNotLearned: Flow<List<Song>>
+
     @WorkerThread
     suspend fun getById(songId: Int): Song
 

@@ -12,10 +12,10 @@
         tools:layout="@layout/fragment_learned_songs" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="ru.viafanasyev.guitarsongbook.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        android:id="@+id/navigation_not_learned_songs"
+        android:name="ru.viafanasyev.guitarsongbook.ui.notlearnedsongs.NotLearnedSongsFragment"
+        android:label="@string/title_not_learned_songs"
+        tools:layout="@layout/fragment_not_learned_songs" />
 
     <fragment
         android:id="@+id/navigation_notifications"

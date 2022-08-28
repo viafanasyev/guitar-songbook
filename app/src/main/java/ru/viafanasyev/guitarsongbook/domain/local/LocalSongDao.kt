@@ -14,6 +14,9 @@ interface LocalSongDao : SongDao<LocalSong> {
     @Query("SELECT * FROM song WHERE isLearned=1")
     override fun getAllLearned(): Flow<List<LocalSong>>
 
+    @Query("SELECT * FROM song WHERE isLearned=0")
+    override fun getAllNotLearned(): Flow<List<LocalSong>>
+
     @Query("SELECT * FROM song WHERE id=:songId")
     override fun getById(songId: Int): LocalSong
 
