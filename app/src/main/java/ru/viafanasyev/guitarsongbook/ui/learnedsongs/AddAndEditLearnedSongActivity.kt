@@ -23,16 +23,11 @@ class AddAndEditLearnedSongActivity : AppCompatActivity() {
         _binding = ActivityAddAndEditLearnedSongBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val song = intent.getParcelableExtra<Song>(Extras.SONG)
-        if (song != null) {
+        intent.getParcelableExtra<Song>(Extras.SONG)?.let { song ->
             // Song is edited
             editedSongId = song.id
             binding.learnedSongTitleEditText.setText(song.title)
             binding.learnedSongAuthorEditText.setText(song.author)
-            title = getString(R.string.title_edit_learned_song)
-        } else {
-            // New song is added
-            title = getString(R.string.title_add_learned_song)
         }
 
         binding.learnedSongTitleEditText.addTextChangedListener(afterTextChanged = {

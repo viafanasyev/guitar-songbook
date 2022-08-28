@@ -31,4 +31,7 @@
     <!-- Example data -->
     <string name="stub_song_title">Название песни</string>
     <string name="stub_song_author">Автор песни</string>
+
+    <!-- Extras -->
+    <string name="empty" />
 </resources>

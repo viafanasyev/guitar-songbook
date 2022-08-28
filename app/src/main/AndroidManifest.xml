@@ -16,7 +16,7 @@
         <activity
             android:name=".ui.learnedsongs.AddAndEditLearnedSongActivity"
             android:exported="false"
-            android:label="@string/title_edit_learned_song"
+            android:label="@string/empty"
             android:screenOrientation="userPortrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
