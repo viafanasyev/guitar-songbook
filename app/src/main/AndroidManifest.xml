@@ -20,7 +20,7 @@
             android:screenOrientation="userPortrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".ui.learnedsongs.LearnedSongActivity"
+            android:name=".ui.detailed.SongActivity"
             android:exported="false"
             android:screenOrientation="userPortrait"
             tools:ignore="LockedOrientationActivity" />

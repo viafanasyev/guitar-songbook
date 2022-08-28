@@ -15,6 +15,7 @@ import ru.viafanasyev.guitarsongbook.adapter.LearnedSongsRecyclerAdapter
 import ru.viafanasyev.guitarsongbook.databinding.FragmentLearnedSongsBinding
 import ru.viafanasyev.guitarsongbook.domain.DataAccessService
 import ru.viafanasyev.guitarsongbook.domain.common.entities.Song
+import ru.viafanasyev.guitarsongbook.ui.detailed.SongActivity
 import ru.viafanasyev.guitarsongbook.ui.edit.AddSongResultContract
 import ru.viafanasyev.guitarsongbook.ui.edit.EditSongResultContract
 import ru.viafanasyev.guitarsongbook.utils.Extras
@@ -62,7 +63,7 @@ class LearnedSongsFragment : Fragment() {
     }
 
     private fun onSongClick(song: Song, position: Int) {
-        val intent = Intent(activity, LearnedSongActivity::class.java)
+        val intent = Intent(activity, SongActivity::class.java)
         intent.putExtra(Extras.SONG, song)
         startActivity(intent)
     }
