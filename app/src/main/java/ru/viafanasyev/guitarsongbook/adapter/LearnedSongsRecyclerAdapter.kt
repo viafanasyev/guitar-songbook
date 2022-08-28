@@ -8,14 +8,14 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import ru.viafanasyev.guitarsongbook.databinding.SongItemBinding
+import ru.viafanasyev.guitarsongbook.databinding.LearnedSongItemBinding
 import ru.viafanasyev.guitarsongbook.domain.common.entities.Song
 import ru.viafanasyev.guitarsongbook.layouts.SwipeRevealLayout
 
 class LearnedSongsRecyclerAdapter(
     onSongClickListener: (song: Song, position: Int) -> Unit = { _, _ -> },
     onSongEdit: (song: Song, position: Int) -> Unit = { _, _ -> },
-    onSongDelete: (song: Song, position: Int) -> Unit = { _, _, -> },
+    onSongDelete: (song: Song, position: Int) -> Unit = { _, _ -> },
 ) : ListAdapter<Song, LearnedSongsRecyclerAdapter.LearnedSongViewHolder>(DIFF_CALLBACK) {
 
     class LearnedSongsActionListener(
@@ -44,7 +44,7 @@ class LearnedSongsRecyclerAdapter(
         onSongDelete = onSongDelete,
     )
 
-    class LearnedSongViewHolder(private val binding: SongItemBinding) : RecyclerView.ViewHolder(binding.root) {
+    class LearnedSongViewHolder(private val binding: LearnedSongItemBinding) : RecyclerView.ViewHolder(binding.root) {
         private val root: SwipeRevealLayout = binding.root
         private val songItem: View = binding.songItem
         private val songTitleTextView: TextView = binding.songTitle
@@ -70,7 +70,7 @@ class LearnedSongsRecyclerAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LearnedSongViewHolder {
-        val binding = SongItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = LearnedSongItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return LearnedSongViewHolder(binding)
     }
 

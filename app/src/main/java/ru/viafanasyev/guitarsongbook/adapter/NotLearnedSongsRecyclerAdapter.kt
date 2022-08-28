@@ -8,24 +8,27 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import ru.viafanasyev.guitarsongbook.databinding.SongItemBinding
+import ru.viafanasyev.guitarsongbook.databinding.NotLearnedSongItemBinding
 import ru.viafanasyev.guitarsongbook.domain.common.entities.Song
 import ru.viafanasyev.guitarsongbook.layouts.SwipeRevealLayout
 
 class NotLearnedSongsRecyclerAdapter(
     onSongClickListener: (song: Song, position: Int) -> Unit = { _, _ -> },
+    onSongMakeLearned: (song: Song, position: Int) -> Unit = { _, _ -> },
     onSongEdit: (song: Song, position: Int) -> Unit = { _, _ -> },
-    onSongDelete: (song: Song, position: Int) -> Unit = { _, _, -> },
+    onSongDelete: (song: Song, position: Int) -> Unit = { _, _ -> },
 ) : ListAdapter<Song, NotLearnedSongsRecyclerAdapter.NotLearnedSongViewHolder>(DIFF_CALLBACK) {
 
     class NotLearnedSongsActionListener(
         onSongClickListener: (song: Song, position: Int) -> Unit = { _, _ -> },
+        onSongMakeLearned: (song: Song, position: Int) -> Unit = { _, _ -> },
         onSongEdit: (song: Song, position: Int) -> Unit = { _, _ -> },
         onSongDelete: (song: Song, position: Int) -> Unit = { _, _, -> },
     ) : SwipeLayoutActionListener<Song, NotLearnedSongsActionListener.ActionType>(
         onItemClick = onSongClickListener,
         onItemButtonClick = { item, position, actionType ->
             when (actionType) {
+                ActionType.MAKE_LEARNED -> onSongMakeLearned(item, position)
                 ActionType.EDIT -> onSongEdit(item, position)
                 ActionType.DELETE -> onSongDelete(item, position)
                 else -> throw UnsupportedOperationException("Unknown action type $actionType")
@@ -33,6 +36,7 @@ class NotLearnedSongsRecyclerAdapter(
         }
     ) {
         enum class ActionType {
+            MAKE_LEARNED,
             EDIT,
             DELETE,
         }
@@ -40,15 +44,17 @@ class NotLearnedSongsRecyclerAdapter(
 
     private val actionListener = NotLearnedSongsActionListener(
         onSongClickListener = onSongClickListener,
+        onSongMakeLearned = onSongMakeLearned,
         onSongEdit = onSongEdit,
         onSongDelete = onSongDelete,
     )
 
-    class NotLearnedSongViewHolder(private val binding: SongItemBinding) : RecyclerView.ViewHolder(binding.root) {
+    class NotLearnedSongViewHolder(private val binding: NotLearnedSongItemBinding) : RecyclerView.ViewHolder(binding.root) {
         private val root: SwipeRevealLayout = binding.root
         private val songItem: View = binding.songItem
         private val songTitleTextView: TextView = binding.songTitle
         private val songAuthorTextView: TextView = binding.songAuthor
+        private val buttonMakeLearned: Button = binding.buttonMakeLearnedSong
         private val buttonEdit: Button = binding.buttonEditSong
         private val buttonDelete: Button = binding.buttonDeleteSong
 
@@ -60,6 +66,9 @@ class NotLearnedSongsRecyclerAdapter(
             songItem.setOnClickListener {
                 actionListener.onItemClick(root, song, position)
             }
+            buttonMakeLearned.setOnClickListener {
+                actionListener.onItemButtonClick(root, song, position, NotLearnedSongsActionListener.ActionType.MAKE_LEARNED)
+            }
             buttonEdit.setOnClickListener {
                 actionListener.onItemButtonClick(root, song, position, NotLearnedSongsActionListener.ActionType.EDIT)
             }
@@ -70,7 +79,7 @@ class NotLearnedSongsRecyclerAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NotLearnedSongViewHolder {
-        val binding = SongItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = NotLearnedSongItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return NotLearnedSongViewHolder(binding)
     }
 

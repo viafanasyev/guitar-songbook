@@ -6,9 +6,11 @@
     <string name="button_edit">Изменить</string>
     <string name="button_delete">Удалить</string>
     <string name="button_confirm">Подтвердить</string>
+    <string name="button_make_learned">Изучить</string>
 
     <!-- Messages -->
     <string name="message_added_song">Добавлена песня \'%1$s — %2$s\'</string>
+    <string name="message_make_song_learned">Песня \'%1$s — %2$s\' перемещена в изученные</string>
 
     <!-- Dialogs -->
     <string name="dialog_title_delete_song">Удалить песню</string>

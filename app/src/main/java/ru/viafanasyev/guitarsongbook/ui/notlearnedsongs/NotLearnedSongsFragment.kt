@@ -46,6 +46,7 @@ class NotLearnedSongsFragment : Fragment() {
         notLearnedSongsRecyclerView.layoutManager = LinearLayoutManager(context)
         notLearnedSongsRecyclerView.adapter  = NotLearnedSongsRecyclerAdapter(
             onSongClickListener = ::onSongClick,
+            onSongMakeLearned = ::onSongMakeLearned,
             onSongEdit = ::onSongEditRequest,
             onSongDelete = ::onSongDelete,
         ).apply {
@@ -66,6 +67,16 @@ class NotLearnedSongsFragment : Fragment() {
         val intent = Intent(activity, SongActivity::class.java)
         intent.putExtra(Extras.SONG, song)
         startActivity(intent)
+    }
+
+    private fun onSongMakeLearned(song: Song, position: Int) {
+        notLearnedSongsViewModel.makeLearned(song).invokeOnCompletion {
+            Snackbar.make(
+                binding.root,
+                getString(R.string.message_make_song_learned, song.author, song.title),
+                Snackbar.LENGTH_LONG
+            ).show()
+        }
     }
 
     private fun onSongEditRequest(song: Song, position: Int) {
