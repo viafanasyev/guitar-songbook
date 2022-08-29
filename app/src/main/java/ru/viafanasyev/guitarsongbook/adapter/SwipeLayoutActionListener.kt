@@ -15,8 +15,10 @@ open class SwipeLayoutActionListener<T, AT>(
     }
 
     override fun onItemOpen(itemView: SwipeRevealLayout) {
-        currentlyOpenedItemView?.close(true)
-        currentlyOpenedItemView = itemView
+        if (itemView != currentlyOpenedItemView) {
+            currentlyOpenedItemView?.close(true)
+            currentlyOpenedItemView = itemView
+        }
     }
 
     override fun onItemClose(itemView: SwipeRevealLayout) {
