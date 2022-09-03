@@ -3,12 +3,12 @@
 
     <item
         android:id="@+id/navigation_learned_songs"
-        android:icon="@drawable/ic_home_black_24dp"
+        android:icon="@drawable/ic_learned_song_24dp"
         android:title="@string/title_learned_songs" />
 
     <item
         android:id="@+id/navigation_not_learned_songs"
-        android:icon="@drawable/ic_dashboard_black_24dp"
+        android:icon="@drawable/ic_not_learned_song_24dp"
         android:title="@string/title_not_learned_songs" />
 
     <item

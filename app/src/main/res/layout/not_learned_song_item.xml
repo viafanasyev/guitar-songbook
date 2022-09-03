@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="80dp"
     android:layout_gravity="top"
     app:dragFromEdge="right"
     android:foreground="?selectableItemBackground">
@@ -11,7 +11,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/songItem"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
         android:paddingHorizontal="16dp"
         android:paddingVertical="10dp"
@@ -25,6 +25,7 @@
             android:layout_height="wrap_content"
             android:text="@string/stub_song_title"
             android:textAppearance="?android:attr/textAppearanceLarge"
+            app:layout_constraintBottom_toTopOf="@id/songAuthor"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -34,40 +35,47 @@
             android:layout_height="wrap_content"
             android:text="@string/stub_song_author"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            app:layout_constraintStart_toStartOf="@+id/songTitle"
-            app:layout_constraintTop_toBottomOf="@+id/songTitle" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@id/songTitle"
+            app:layout_constraintTop_toBottomOf="@id/songTitle" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:gravity="center_vertical|end"
         android:orientation="horizontal"
         android:foreground="?selectableItemBackground">
 
-        <Button
-            android:id="@+id/buttonMakeLearnedSong"
-            android:layout_width="wrap_content"
+        <include
+            layout="@layout/button_move_song_to_learned"
+            android:id="@+id/buttonMoveSongToLearned"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_marginEnd="5dp"
-            android:text="@string/button_make_learned"
-            style="?android:attr/buttonBarButtonStyle" />
+            app:layout_constraintDimensionRatio="7:8"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
 
-        <Button
+        <include
+            layout="@layout/button_edit_song"
             android:id="@+id/buttonEditSong"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_marginEnd="5dp"
-            android:text="@string/button_edit"
-            style="?android:attr/buttonBarButtonStyle" />
+            app:layout_constraintDimensionRatio="7:8"
+            app:layout_constraintStart_toEndOf="@id/buttonMoveSongToLearned"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
 
-        <Button
+        <include
+            layout="@layout/button_delete_song"
             android:id="@+id/buttonDeleteSong"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_marginEnd="5dp"
-            android:text="@string/button_delete"
-            style="?android:attr/buttonBarButtonStyle" />
-    </LinearLayout>
+            app:layout_constraintDimensionRatio="7:8"
+            app:layout_constraintStart_toEndOf="@id/buttonEditSong"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </ru.viafanasyev.guitarsongbook.layouts.SwipeRevealLayout>

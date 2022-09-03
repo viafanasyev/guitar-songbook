@@ -3,7 +3,7 @@ package ru.viafanasyev.guitarsongbook.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -54,9 +54,9 @@ class NotLearnedSongsRecyclerAdapter(
         private val songItem: View = binding.songItem
         private val songTitleTextView: TextView = binding.songTitle
         private val songAuthorTextView: TextView = binding.songAuthor
-        private val buttonMakeLearned: Button = binding.buttonMakeLearnedSong
-        private val buttonEdit: Button = binding.buttonEditSong
-        private val buttonDelete: Button = binding.buttonDeleteSong
+        private val buttonMakeLearned: ImageButton = binding.buttonMoveSongToLearned.root
+        private val buttonEdit: ImageButton = binding.buttonEditSong.root
+        private val buttonDelete: ImageButton = binding.buttonDeleteSong.root
 
         fun bind(song: Song, position: Int, actionListener: NotLearnedSongsActionListener) {
             root.onOpen = { actionListener.onItemOpen(root) }

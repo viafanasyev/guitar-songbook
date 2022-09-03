@@ -3,10 +3,7 @@
     <string name="title_learned_songs">Изученные песни</string>
     <string name="title_not_learned_songs">Не изученные песни</string>
     <string name="title_notifications">Notifications</string>
-    <string name="button_edit">Изменить</string>
-    <string name="button_delete">Удалить</string>
     <string name="button_confirm">Подтвердить</string>
-    <string name="button_make_learned">Изучить</string>
 
     <!-- Messages -->
     <string name="message_added_song">Добавлена песня \'%1$s — %2$s\'</string>
@@ -18,6 +15,9 @@
 
     <!-- Content descriptions -->
     <string name="content_description_add_song">Добавить песню</string>
+    <string name="content_description_move_song_to_learned">Изучить песню</string>
+    <string name="content_description_edit_song">Изменить песню</string>
+    <string name="content_description_delete_song">Удалить песню</string>
 
     <!-- Hints -->
     <string name="hint_song_title">Название песни</string>
