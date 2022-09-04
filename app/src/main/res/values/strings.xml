@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Guitar Songbook</string>
-    <string name="title_learned_songs">Изученные песни</string>
-    <string name="title_not_learned_songs">Не изученные песни</string>
+    <string name="title_learned_songs">Изученные</string>
+    <string name="title_not_learned_songs">Неизученные</string>
     <string name="title_notifications">Notifications</string>
     <string name="button_confirm">Подтвердить</string>
 
