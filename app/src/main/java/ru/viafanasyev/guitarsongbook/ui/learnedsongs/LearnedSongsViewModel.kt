@@ -35,6 +35,11 @@ class LearnedSongsViewModel(private val repository: SongRepository) : ViewModel(
         repository.delete(song)
     }
 
+    fun moveToNotLearned(song: Song) = viewModelScope.launch(Dispatchers.IO) {
+        require(song.isLearned)
+        repository.update(Song(song.title, song.author, false, song.id))
+    }
+
     class Factory(private val repository: SongRepository) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             if (modelClass.isAssignableFrom(LearnedSongsViewModel::class.java)) {
