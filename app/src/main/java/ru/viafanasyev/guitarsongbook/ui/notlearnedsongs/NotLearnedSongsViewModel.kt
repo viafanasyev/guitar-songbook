@@ -35,7 +35,7 @@ class NotLearnedSongsViewModel(private val repository: SongRepository) : ViewMod
         repository.delete(song)
     }
 
-    fun makeLearned(song: Song) = viewModelScope.launch(Dispatchers.IO) {
+    fun moveToLearned(song: Song) = viewModelScope.launch(Dispatchers.IO) {
         require(!song.isLearned)
         repository.update(Song(song.title, song.author, true, song.id))
     }

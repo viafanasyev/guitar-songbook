@@ -7,7 +7,7 @@
 
     <!-- Messages -->
     <string name="message_added_song">Добавлена песня \'%1$s — %2$s\'</string>
-    <string name="message_make_song_learned">Песня \'%1$s — %2$s\' перемещена в изученные</string>
+    <string name="message_moved_song_to_learned">Песня \'%1$s — %2$s\' перемещена в изученные</string>
     <string name="message_moved_song_to_not_learned">Песня \'%1$s — %2$s\' перемещена в неизученные</string>
 
     <!-- Dialogs -->
@@ -16,7 +16,7 @@
 
     <!-- Content descriptions -->
     <string name="content_description_add_song">Добавить песню</string>
-    <string name="content_description_move_song_to_learned">Изучить песню</string>
+    <string name="content_description_move_song_to_learned">Переместить песню в изученные</string>
     <string name="content_description_move_song_to_not_learned">Переместить песню в неизученные</string>
     <string name="content_description_edit_song">Изменить песню</string>
     <string name="content_description_delete_song">Удалить песню</string>
