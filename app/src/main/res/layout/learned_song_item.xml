@@ -6,6 +6,7 @@
     android:layout_height="80dp"
     android:layout_gravity="top"
     app:dragFromEdge="right"
+    android:background="@color/white"
     android:foreground="?selectableItemBackground">
 
     <androidx.constraintlayout.widget.ConstraintLayout
