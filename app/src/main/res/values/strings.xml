@@ -5,6 +5,11 @@
     <string name="title_notifications">Notifications</string>
     <string name="button_confirm">Подтвердить</string>
 
+    <!-- Actions -->
+    <string name="action_song_edit">Изменить</string>
+    <string name="action_move_song_to_learned">Переместить в изученные</string>
+    <string name="action_move_song_to_not_learned">Переместить в неизученные</string>
+
     <!-- Messages -->
     <string name="message_added_song">Добавлена песня \'%1$s — %2$s\'</string>
     <string name="message_moved_song_to_learned">Песня \'%1$s — %2$s\' перемещена в изученные</string>
@@ -19,6 +24,7 @@
     <string name="content_description_move_song_to_learned">Переместить песню в изученные</string>
     <string name="content_description_move_song_to_not_learned">Переместить песню в неизученные</string>
     <string name="content_description_edit_song">Изменить песню</string>
+    <string name="content_description_song_action">Подробнее</string>
     <string name="content_description_delete_song">Удалить песню</string>
 
     <!-- Hints -->
@@ -32,6 +38,7 @@
     <!-- Example data -->
     <string name="stub_song_title">Название песни</string>
     <string name="stub_song_author">Автор песни</string>
+    <string name="stub_song_action">Действие</string>
 
     <!-- Extras -->
     <string name="empty" />

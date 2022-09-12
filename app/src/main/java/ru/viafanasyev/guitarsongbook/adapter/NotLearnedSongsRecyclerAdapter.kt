@@ -14,39 +14,14 @@ import ru.viafanasyev.guitarsongbook.layouts.SwipeRevealLayout
 
 class NotLearnedSongsRecyclerAdapter(
     onSongClickListener: (song: Song, position: Int) -> Unit = { _, _ -> },
-    onSongMoveToLearned: (song: Song, position: Int) -> Unit = { _, _ -> },
-    onSongEdit: (song: Song, position: Int) -> Unit = { _, _ -> },
+    onSongAction: (song: Song, position: Int) -> Unit = { _, _ -> },
     onSongDelete: (song: Song, position: Int) -> Unit = { _, _ -> },
 ) : ListAdapter<Song, NotLearnedSongsRecyclerAdapter.NotLearnedSongViewHolder>(DIFF_CALLBACK) {
 
-    class NotLearnedSongsActionListener(
-        onSongClickListener: (song: Song, position: Int) -> Unit = { _, _ -> },
-        onSongMoveToLearned: (song: Song, position: Int) -> Unit = { _, _ -> },
-        onSongEdit: (song: Song, position: Int) -> Unit = { _, _ -> },
-        onSongDelete: (song: Song, position: Int) -> Unit = { _, _, -> },
-    ) : SwipeLayoutActionListener<Song, NotLearnedSongsActionListener.ActionType>(
+    private val actionListener = SwipeLayoutActionListener(
         onItemClick = onSongClickListener,
-        onItemButtonClick = { item, position, actionType ->
-            when (actionType) {
-                ActionType.MOVE_TO_LEARNED -> onSongMoveToLearned(item, position)
-                ActionType.EDIT -> onSongEdit(item, position)
-                ActionType.DELETE -> onSongDelete(item, position)
-                else -> throw UnsupportedOperationException("Unknown action type $actionType")
-            }
-        }
-    ) {
-        enum class ActionType {
-            MOVE_TO_LEARNED,
-            EDIT,
-            DELETE,
-        }
-    }
-
-    private val actionListener = NotLearnedSongsActionListener(
-        onSongClickListener = onSongClickListener,
-        onSongMoveToLearned = onSongMoveToLearned,
-        onSongEdit = onSongEdit,
-        onSongDelete = onSongDelete,
+        onItemAction = onSongAction,
+        onItemDelete = onSongDelete,
     )
 
     class NotLearnedSongViewHolder(private val binding: NotLearnedSongItemBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -54,11 +29,10 @@ class NotLearnedSongsRecyclerAdapter(
         private val songItem: View = binding.songItem
         private val songTitleTextView: TextView = binding.songTitle
         private val songAuthorTextView: TextView = binding.songAuthor
-        private val buttonMoveToLearned: ImageButton = binding.buttonMoveSongToLearned.root
-        private val buttonEdit: ImageButton = binding.buttonEditSong.root
+        private val buttonAction: ImageButton = binding.buttonSongAction.root
         private val buttonDelete: ImageButton = binding.buttonDeleteSong.root
 
-        fun bind(song: Song, position: Int, actionListener: NotLearnedSongsActionListener) {
+        fun bind(song: Song, position: Int, actionListener: SwipeLayoutActionListener<Song>) {
             root.onOpen = { actionListener.onItemOpen(root) }
             root.onClose = { actionListener.onItemClose(root) }
             songTitleTextView.text = song.title
@@ -66,14 +40,11 @@ class NotLearnedSongsRecyclerAdapter(
             songItem.setOnClickListener {
                 actionListener.onItemClick(root, song, position)
             }
-            buttonMoveToLearned.setOnClickListener {
-                actionListener.onItemButtonClick(root, song, position, NotLearnedSongsActionListener.ActionType.MOVE_TO_LEARNED)
-            }
-            buttonEdit.setOnClickListener {
-                actionListener.onItemButtonClick(root, song, position, NotLearnedSongsActionListener.ActionType.EDIT)
+            buttonAction.setOnClickListener {
+                actionListener.onItemAction(root, song, position)
             }
             buttonDelete.setOnClickListener {
-                actionListener.onItemButtonClick(root, song, position, NotLearnedSongsActionListener.ActionType.DELETE)
+                actionListener.onItemDelete(root, song, position)
             }
         }
     }

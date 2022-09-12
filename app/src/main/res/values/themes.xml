@@ -16,6 +16,7 @@
         <item name="textInputStyle">@style/TextInputLayout</item>
         <item name="materialButtonStyle">@style/Button</item>
         <item name="android:alertDialogTheme">@style/AlertDialog</item>
+        <item name="bottomSheetDialogTheme">@style/BottomSheetDialog</item>
     </style>
 
     <style name="Toolbar" parent="Widget.AppCompat.Toolbar">
@@ -55,5 +56,21 @@
 
     <style name="AlertDialogButton" parent="Widget.AppCompat.Button.Borderless">
         <item name="android:textColor">@color/amber_500</item>
+    </style>
+
+    <style name="BottomSheetDialog" parent="ThemeOverlay.MaterialComponents.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/BottomSheet</item>
+    </style>
+
+    <style name="BottomSheet" parent="Widget.MaterialComponents.BottomSheet">
+        <item name="shapeAppearanceOverlay">@style/BottomSheetDialogShapeAppearance</item>
+    </style>
+
+    <style name="BottomSheetDialogShapeAppearance" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopRight">16dp</item>
+        <item name="cornerSizeTopLeft">16dp</item>
+        <item name="cornerSizeBottomRight">0dp</item>
+        <item name="cornerSizeBottomLeft">0dp</item>
     </style>
 </resources>

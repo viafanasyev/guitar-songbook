@@ -48,22 +48,12 @@
         android:foreground="?selectableItemBackground">
 
         <include
-            layout="@layout/button_move_song_to_not_learned"
-            android:id="@+id/buttonMoveSongToNotLearned"
+            layout="@layout/button_song_action"
+            android:id="@+id/buttonSongAction"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             app:layout_constraintDimensionRatio="7:8"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" />
-
-        <include
-            layout="@layout/button_edit_song"
-            android:id="@+id/buttonEditSong"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            app:layout_constraintDimensionRatio="7:8"
-            app:layout_constraintStart_toEndOf="@id/buttonMoveSongToNotLearned"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" />
 
@@ -73,7 +63,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             app:layout_constraintDimensionRatio="7:8"
-            app:layout_constraintStart_toEndOf="@id/buttonEditSong"
+            app:layout_constraintStart_toEndOf="@id/buttonSongAction"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" />
 

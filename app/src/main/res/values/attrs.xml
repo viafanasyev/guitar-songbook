@@ -6,4 +6,8 @@
             <flag name="right" value="2" />
         </attr>
     </declare-styleable>
+    <declare-styleable name="ActionItemLayout">
+        <attr name="icon" format="reference" />
+        <attr name="title" format="string" />
+    </declare-styleable>
 </resources>

@@ -15,10 +15,15 @@ import ru.viafanasyev.guitarsongbook.adapter.NotLearnedSongsRecyclerAdapter
 import ru.viafanasyev.guitarsongbook.databinding.FragmentNotLearnedSongsBinding
 import ru.viafanasyev.guitarsongbook.domain.DataAccessService
 import ru.viafanasyev.guitarsongbook.domain.common.entities.Song
+import ru.viafanasyev.guitarsongbook.ui.actions.SongAction
+import ru.viafanasyev.guitarsongbook.ui.actions.SongActionType
+import ru.viafanasyev.guitarsongbook.ui.actions.SongActionsDialogFragment
 import ru.viafanasyev.guitarsongbook.ui.detailed.SongActivity
 import ru.viafanasyev.guitarsongbook.ui.edit.AddSongResultContract
 import ru.viafanasyev.guitarsongbook.ui.edit.EditSongResultContract
 import ru.viafanasyev.guitarsongbook.utils.Extras
+import ru.viafanasyev.guitarsongbook.utils.FragmentTags
+import ru.viafanasyev.guitarsongbook.utils.RequestKeys
 
 class NotLearnedSongsFragment : Fragment() {
 
@@ -46,8 +51,7 @@ class NotLearnedSongsFragment : Fragment() {
         notLearnedSongsRecyclerView.layoutManager = LinearLayoutManager(context)
         notLearnedSongsRecyclerView.adapter  = NotLearnedSongsRecyclerAdapter(
             onSongClickListener = ::onSongClick,
-            onSongMoveToLearned = ::onSongMoveToLearned,
-            onSongEdit = ::onSongEditRequest,
+            onSongAction = ::onSongAction,
             onSongDelete = ::onSongDelete,
         ).apply {
             notLearnedSongsViewModel.allNotLearned.observe(viewLifecycleOwner, ::submitList)
@@ -67,6 +71,28 @@ class NotLearnedSongsFragment : Fragment() {
         val intent = Intent(activity, SongActivity::class.java)
         intent.putExtra(Extras.SONG, song)
         startActivity(intent)
+    }
+
+    private fun onSongAction(song: Song, position: Int) {
+        // TODO: Move this call to `onCreateView`? How to get `song` and `position` there?
+        childFragmentManager.setFragmentResultListener(RequestKeys.SONG_ACTION, viewLifecycleOwner) { _, bundle ->
+            onSongActionDialogResult(song, position, bundle)
+            childFragmentManager.clearFragmentResultListener(RequestKeys.SONG_ACTION)
+        }
+
+        SongActionsDialogFragment.newInstance(
+            SongAction(SongActionType.SONG_EDIT, R.layout.action_song_edit),
+            SongAction(SongActionType.MOVE_SONG_TO_LEARNED, R.layout.action_move_song_to_learned),
+        ).show(childFragmentManager, FragmentTags.SONG_ACTION_DIALOG)
+    }
+
+    private fun onSongActionDialogResult(song: Song, position: Int, bundle: Bundle) {
+        when (val songAction = bundle.getSerializable(Extras.SONG_ACTION) as SongActionType?) {
+            SongActionType.SONG_EDIT -> onSongEditRequest(song, position)
+            SongActionType.MOVE_SONG_TO_LEARNED -> onSongMoveToLearned(song, position)
+            null -> { /* Dialog is cancelled -> do nothing */ }
+            else -> throw UnsupportedOperationException("Unexpected song action $songAction for not learned song $song")
+        }
     }
 
     private fun onSongMoveToLearned(song: Song, position: Int) {
