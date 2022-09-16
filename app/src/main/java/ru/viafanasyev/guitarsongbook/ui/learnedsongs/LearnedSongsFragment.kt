@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -62,6 +63,10 @@ class LearnedSongsFragment : Fragment() {
 
         binding.fabAddLearnedSong.setOnClickListener {
             addSongActivityLauncher.launch(true)
+        }
+
+        learnedSongsViewModel.allLearned.observe(viewLifecycleOwner) {
+            (activity as? AppCompatActivity)?.supportActionBar?.title = "${getString(R.string.title_learned_songs)} (${it.size})"
         }
 
         return binding.root
