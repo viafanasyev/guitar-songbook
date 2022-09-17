@@ -10,10 +10,11 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import ru.viafanasyev.guitarsongbook.domain.common.SongRepository
+import ru.viafanasyev.guitarsongbook.domain.common.entities.SongListItem
 import ru.viafanasyev.guitarsongbook.domain.common.entities.Song
 
 class NotLearnedSongsViewModel(private val repository: SongRepository) : ViewModel() {
-    val allNotLearned: LiveData<List<Song>> = repository.allNotLearned.asLiveData()
+    val allNotLearned: LiveData<List<SongListItem>> = repository.allNotLearned.asLiveData()
 
     fun getById(songId: Int): LiveData<Song> = liveData {
         emit(
@@ -31,13 +32,12 @@ class NotLearnedSongsViewModel(private val repository: SongRepository) : ViewMod
         repository.update(song)
     }
 
-    fun delete(song: Song) = viewModelScope.launch(Dispatchers.IO) {
-        repository.delete(song)
+    fun delete(songId: Int) = viewModelScope.launch(Dispatchers.IO) {
+        repository.delete(songId)
     }
 
-    fun moveToLearned(song: Song) = viewModelScope.launch(Dispatchers.IO) {
-        require(!song.isLearned)
-        repository.update(Song(song.title, song.author, true, song.id))
+    fun moveToLearned(songId: Int) = viewModelScope.launch(Dispatchers.IO) {
+        repository.moveToLearned(songId)
     }
 
     class Factory(private val repository: SongRepository) : ViewModelProvider.Factory {

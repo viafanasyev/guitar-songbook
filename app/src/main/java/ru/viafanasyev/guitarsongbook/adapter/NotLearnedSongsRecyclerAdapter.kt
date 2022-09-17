@@ -9,14 +9,14 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import ru.viafanasyev.guitarsongbook.databinding.NotLearnedSongItemBinding
-import ru.viafanasyev.guitarsongbook.domain.common.entities.Song
+import ru.viafanasyev.guitarsongbook.domain.common.entities.SongListItem
 import ru.viafanasyev.guitarsongbook.layouts.SwipeRevealLayout
 
 class NotLearnedSongsRecyclerAdapter(
-    onSongClickListener: (song: Song, position: Int) -> Unit = { _, _ -> },
-    onSongAction: (song: Song, position: Int) -> Unit = { _, _ -> },
-    onSongDelete: (song: Song, position: Int) -> Unit = { _, _ -> },
-) : ListAdapter<Song, NotLearnedSongsRecyclerAdapter.NotLearnedSongViewHolder>(DIFF_CALLBACK) {
+    onSongClickListener: (song: SongListItem, position: Int) -> Unit = { _, _ -> },
+    onSongAction: (song: SongListItem, position: Int) -> Unit = { _, _ -> },
+    onSongDelete: (song: SongListItem, position: Int) -> Unit = { _, _ -> },
+) : ListAdapter<SongListItem, NotLearnedSongsRecyclerAdapter.NotLearnedSongViewHolder>(DIFF_CALLBACK) {
 
     private val actionListener = SwipeLayoutActionListener(
         onItemClick = onSongClickListener,
@@ -32,7 +32,7 @@ class NotLearnedSongsRecyclerAdapter(
         private val buttonAction: ImageButton = binding.buttonSongAction.root
         private val buttonDelete: ImageButton = binding.buttonDeleteSong.root
 
-        fun bind(song: Song, position: Int, actionListener: SwipeLayoutActionListener<Song>) {
+        fun bind(song: SongListItem, position: Int, actionListener: SwipeLayoutActionListener<SongListItem>) {
             root.onOpen = { actionListener.onItemOpen(root) }
             root.onClose = { actionListener.onItemClose(root) }
             songTitleTextView.text = song.title
@@ -70,10 +70,10 @@ class NotLearnedSongsRecyclerAdapter(
     }
 
     companion object {
-        private val DIFF_CALLBACK: DiffUtil.ItemCallback<Song> = object : DiffUtil.ItemCallback<Song>() {
-            override fun areItemsTheSame(oldItem: Song, newItem: Song) = oldItem.id == newItem.id
+        private val DIFF_CALLBACK: DiffUtil.ItemCallback<SongListItem> = object : DiffUtil.ItemCallback<SongListItem>() {
+            override fun areItemsTheSame(oldItem: SongListItem, newItem: SongListItem) = oldItem.id == newItem.id
 
-            override fun areContentsTheSame(oldItem: Song, newItem: Song) = oldItem == newItem
+            override fun areContentsTheSame(oldItem: SongListItem, newItem: SongListItem) = oldItem == newItem
         }
     }
 }

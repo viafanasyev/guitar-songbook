@@ -15,6 +15,7 @@ import ru.viafanasyev.guitarsongbook.R
 import ru.viafanasyev.guitarsongbook.adapter.NotLearnedSongsRecyclerAdapter
 import ru.viafanasyev.guitarsongbook.databinding.FragmentNotLearnedSongsBinding
 import ru.viafanasyev.guitarsongbook.domain.DataAccessService
+import ru.viafanasyev.guitarsongbook.domain.common.entities.SongListItem
 import ru.viafanasyev.guitarsongbook.domain.common.entities.Song
 import ru.viafanasyev.guitarsongbook.ui.actions.SongAction
 import ru.viafanasyev.guitarsongbook.ui.actions.SongActionType
@@ -72,13 +73,13 @@ class NotLearnedSongsFragment : Fragment() {
         return binding.root
     }
 
-    private fun onSongClick(song: Song, position: Int) {
+    private fun onSongClick(song: SongListItem, position: Int) {
         val intent = Intent(activity, SongActivity::class.java)
-        intent.putExtra(Extras.SONG, song)
+        intent.putExtra(Extras.SONG_LIST_ITEM, song)
         startActivity(intent)
     }
 
-    private fun onSongAction(song: Song, position: Int) {
+    private fun onSongAction(song: SongListItem, position: Int) {
         // TODO: Move this call to `onCreateView`? How to get `song` and `position` there?
         childFragmentManager.setFragmentResultListener(RequestKeys.SONG_ACTION, viewLifecycleOwner) { _, bundle ->
             onSongActionDialogResult(song, position, bundle)
@@ -91,7 +92,7 @@ class NotLearnedSongsFragment : Fragment() {
         ).show(childFragmentManager, FragmentTags.SONG_ACTION_DIALOG)
     }
 
-    private fun onSongActionDialogResult(song: Song, position: Int, bundle: Bundle) {
+    private fun onSongActionDialogResult(song: SongListItem, position: Int, bundle: Bundle) {
         when (val songAction = bundle.getSerializable(Extras.SONG_ACTION) as SongActionType?) {
             SongActionType.SONG_EDIT -> onSongEditRequest(song, position)
             SongActionType.MOVE_SONG_TO_LEARNED -> onSongMoveToLearned(song, position)
@@ -100,8 +101,9 @@ class NotLearnedSongsFragment : Fragment() {
         }
     }
 
-    private fun onSongMoveToLearned(song: Song, position: Int) {
-        notLearnedSongsViewModel.moveToLearned(song).invokeOnCompletion {
+    private fun onSongMoveToLearned(song: SongListItem, position: Int) {
+        require(!song.isLearned)
+        notLearnedSongsViewModel.moveToLearned(song.id).invokeOnCompletion {
             Snackbar.make(
                 binding.root,
                 getString(R.string.message_moved_song_to_learned, song.author, song.title),
@@ -110,7 +112,7 @@ class NotLearnedSongsFragment : Fragment() {
         }
     }
 
-    private fun onSongEditRequest(song: Song, position: Int) {
+    private fun onSongEditRequest(song: SongListItem, position: Int) {
         editSongActivityLauncher.launch(song)
     }
 
@@ -120,12 +122,12 @@ class NotLearnedSongsFragment : Fragment() {
         }
     }
 
-    private fun onSongDelete(song: Song, position: Int) {
+    private fun onSongDelete(song: SongListItem, position: Int) {
         AlertDialog.Builder(context)
             .setTitle(R.string.dialog_title_delete_song)
             .setMessage(getString(R.string.dialog_message_delete_song, song.author, song.title))
             .setPositiveButton(android.R.string.ok) { _, _ ->
-                notLearnedSongsViewModel.delete(song)
+                notLearnedSongsViewModel.delete(song.id)
             }
             .setNegativeButton(android.R.string.cancel, null)
             .show()

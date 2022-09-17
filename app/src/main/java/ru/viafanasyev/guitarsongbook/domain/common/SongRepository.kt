@@ -2,12 +2,13 @@ package ru.viafanasyev.guitarsongbook.domain.common
 
 import androidx.annotation.WorkerThread
 import kotlinx.coroutines.flow.Flow
+import ru.viafanasyev.guitarsongbook.domain.common.entities.SongListItem
 import ru.viafanasyev.guitarsongbook.domain.common.entities.Song
 
 interface SongRepository {
-    val allLearned: Flow<List<Song>>
+    val allLearned: Flow<List<SongListItem>>
 
-    val allNotLearned: Flow<List<Song>>
+    val allNotLearned: Flow<List<SongListItem>>
 
     @WorkerThread
     suspend fun getById(songId: Int): Song
@@ -19,5 +20,11 @@ interface SongRepository {
     suspend fun update(song: Song)
 
     @WorkerThread
-    suspend fun delete(song: Song)
+    suspend fun moveToLearned(songId: Int)
+
+    @WorkerThread
+    suspend fun moveToNotLearned(songId: Int)
+
+    @WorkerThread
+    suspend fun delete(songId: Int)
 }

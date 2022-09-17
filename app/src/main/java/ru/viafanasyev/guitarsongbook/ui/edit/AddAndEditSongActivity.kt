@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
 import ru.viafanasyev.guitarsongbook.R
 import ru.viafanasyev.guitarsongbook.databinding.ActivityAddAndEditSongBinding
+import ru.viafanasyev.guitarsongbook.domain.common.entities.SongListItem
 import ru.viafanasyev.guitarsongbook.domain.common.entities.Song
 import ru.viafanasyev.guitarsongbook.utils.Extras
 import ru.viafanasyev.guitarsongbook.utils.validateInput
@@ -26,7 +27,7 @@ class AddAndEditSongActivity : AppCompatActivity() {
         _binding = ActivityAddAndEditSongBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        intent.getParcelableExtra<Song>(Extras.SONG)?.let { song ->
+        intent.getParcelableExtra<SongListItem>(Extras.SONG_LIST_ITEM)?.let { song ->
             // Song is edited
             editedSongId = song.id
             binding.songTitleEditText.setText(song.title)
