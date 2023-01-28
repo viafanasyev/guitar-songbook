@@ -106,6 +106,38 @@ class SongMatcherTest {
         assertNotMatches(songMatcher, "-")
     }
 
+    @Test
+    fun matcherWithAllPossibleChars_lineWithPartOfSeparatorInsideOfTitleAndAuthor_matchedExpected() {
+        val separator = "--"
+        val songMatcher = SongMatcher.newInstanceWithAllPossibleChars(true, separator)
+
+        assertMatches("Aut-hor", "Tit-le", songMatcher, "Aut-hor -- Tit-le")
+    }
+
+    @Test
+    fun matcherWithAllPossibleChars_lineWithSeparatorInsideOfTitleAndAuthor_notMatchedExpected() {
+        val separator = "-"
+        val songMatcher = SongMatcher.newInstanceWithAllPossibleChars(true, separator)
+
+        assertNotMatches(songMatcher, "Aut-hor - Tit-le")
+    }
+
+    @Test
+    fun matcherWithAllPossibleChars_lineWithPartOfSeparatorInsideOfTitleAndAuthorWithSpacesInSeparator_notMatchedExpected() {
+        val separator = " - "
+        val songMatcher = SongMatcher.newInstanceWithAllPossibleChars(true, separator)
+
+        assertMatches("Aut-hor", "Tit-le", songMatcher, "Aut-hor - Tit-le")
+    }
+
+    @Test
+    fun matcherWithAllPossibleChars_lineWithSeparatorInsideOfTitleAndAuthorWithSpacesInSeparator_notMatchedExpected() {
+        val separator = " - "
+        val songMatcher = SongMatcher.newInstanceWithAllPossibleChars(true, separator)
+
+        assertNotMatches(songMatcher, "Aut - hor - Tit - le")
+    }
+
     private fun assertMatches(expectedAuthor: String, expectedTitle: String, matcher: SongMatcher, input: String) {
         val match = matcher.match(input)
         assertNotNull(match); match!!

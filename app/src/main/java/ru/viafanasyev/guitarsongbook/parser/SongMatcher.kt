@@ -16,6 +16,26 @@ class SongMatcher private constructor(
     }
 
     companion object {
+        private const val ALL_PUNCTUATION = "\\'!\"#$%&()*+,-./:;<=>?@[]^_`{|}~"
+
+        /**
+         * Returns new instance of [SongMatcher],
+         * where title and author patterns allow all characters, except [separator].
+         */
+        fun newInstanceWithAllPossibleChars(
+            authorBeforeTitle: Boolean,
+            separator: String,
+        ) = newInstance(
+            authorBeforeTitle = authorBeforeTitle,
+            separator = separator,
+            titlePattern = anyCharExceptSeparatorRegex(separator) + "+?", // Non-greedy, so leading and trailing spaces won't be captured
+            authorPattern = anyCharExceptSeparatorRegex(separator) + "+?",
+        )
+
+        private fun anyCharExceptSeparatorRegex(separator: String): String {
+            return """((\w|\d|\s|[${Regex.escape(ALL_PUNCTUATION)}])(?<!${Regex.escape(separator)}))"""
+        }
+
         fun newInstance(
             authorBeforeTitle: Boolean,
             separator: String,
