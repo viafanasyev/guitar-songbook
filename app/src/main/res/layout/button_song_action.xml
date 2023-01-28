@@ -8,7 +8,7 @@
     android:adjustViewBounds="true"
     android:padding="25dp"
     app:tint="@color/white"
-    android:background="@color/gray_500"
+    android:background="@color/gray_400"
     android:foreground="?selectableItemBackground"
     android:src="@drawable/ic_more_vert_24dp"
     android:contentDescription="@string/content_description_song_action" />
