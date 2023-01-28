@@ -43,7 +43,7 @@ class SongMatcher private constructor(
             authorPattern: String = """\w+""",
         ): SongMatcher {
             val prefix = """(\s*)"""
-            val infix = """(\s*)$separator(\s*)"""
+            val infix = """(\s*)${Regex.escape(separator)}(\s*)"""
             val suffix = """(\s*)"""
             val authorGroup = """(?<author>$authorPattern)"""
             val titleGroup = """(?<title>$titlePattern)"""
