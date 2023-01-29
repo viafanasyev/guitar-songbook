@@ -14,31 +14,11 @@ import ru.viafanasyev.guitarsongbook.utils.SingletonHolder2
 abstract class LocalDatabase : RoomDatabase(), Database<LocalSong> {
     abstract override fun songDao(): LocalSongDao
 
-    companion object : SingletonHolder2<LocalDatabase, Context, CoroutineScope>({ context, scope ->
+    companion object : SingletonHolder2<LocalDatabase, Context, CoroutineScope>({ context, _ ->
         Room.databaseBuilder(
             context.applicationContext,
             LocalDatabase::class.java,
             "guitar-songbook.db"
-        ).addCallback(
-            SongDatabaseCallback(scope)
         ).build()
     })
-
-    private class SongDatabaseCallback(
-        private val scope: CoroutineScope
-    ) : RoomDatabase.Callback() {
-        override fun onCreate(db: SupportSQLiteDatabase) {
-            super.onCreate(db)
-            getInstanceOrNull()?.let { database ->
-                scope.launch {
-                    val songDao = database.songDao()
-                    songDao.insertAll(
-                        *(0..30).map {
-                            LocalSong("Название песни $it", "Автор $it", true, 0)
-                        }.toTypedArray()
-                    )
-                }
-            }
-        }
-    }
 }
