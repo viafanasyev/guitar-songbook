@@ -17,6 +17,7 @@
         <item name="materialButtonStyle">@style/Button</item>
         <item name="android:alertDialogTheme">@style/AlertDialog</item>
         <item name="bottomSheetDialogTheme">@style/BottomSheetDialog</item>
+        <item name="switchStyle">@style/Switch</item>
     </style>
 
     <style name="Toolbar" parent="Widget.AppCompat.Toolbar">
@@ -72,5 +73,10 @@
         <item name="cornerSizeTopLeft">16dp</item>
         <item name="cornerSizeBottomRight">0dp</item>
         <item name="cornerSizeBottomLeft">0dp</item>
+    </style>
+
+    <style name="Switch" parent="Widget.AppCompat.CompoundButton.Switch">
+        <item name="thumbTint">@color/fg_switch_thumb</item>
+        <item name="trackTint">@color/fg_switch_track</item>
     </style>
 </resources>
