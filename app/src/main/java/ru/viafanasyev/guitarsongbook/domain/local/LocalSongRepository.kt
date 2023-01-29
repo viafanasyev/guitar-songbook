@@ -25,6 +25,11 @@ class LocalSongRepository(private val songDao: SongDao<LocalSong>) : SongReposit
     }
 
     @WorkerThread
+    override suspend fun insertAll(songs: Collection<Song>) {
+        songDao.insertAll(*songs.map { it.asLocal() }.toTypedArray())
+    }
+
+    @WorkerThread
     override suspend fun update(song: Song) {
         songDao.update(song.asLocal())
     }
