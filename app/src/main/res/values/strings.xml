@@ -3,7 +3,10 @@
     <string name="title_learned_songs">Изученные</string>
     <string name="title_not_learned_songs">Неизученные</string>
     <string name="title_notifications">Notifications</string>
+
+    <!-- Buttons -->
     <string name="button_confirm">Подтвердить</string>
+    <string name="button_add_as_learned">Добавить в изученные</string>
 
     <!-- Actions -->
     <string name="action_song_edit">Изменить</string>
@@ -15,9 +18,15 @@
     <string name="message_moved_song_to_learned">Песня \'%1$s — %2$s\' перемещена в изученные</string>
     <string name="message_moved_song_to_not_learned">Песня \'%1$s — %2$s\' перемещена в неизученные</string>
 
+    <!-- Menu options -->
+    <string name="menu_option_parse_song_list">Добавить список песен</string>
+
     <!-- Dialogs -->
     <string name="dialog_title_delete_song">Удалить песню</string>
     <string name="dialog_message_delete_song">Вы действительно хотите удалить песню \'%1$s — %2$s\'</string>
+    <string name="dialog_title_song_list_parsing_result">Добавить список песен</string>
+    <string name="dialog_message_song_list_parsing_result_some_not_parsed">Прочитано %1$d песен. Следующие %2$d песен не были прочитаны: %3$s</string>
+    <string name="dialog_message_song_list_parsing_result_all_parsed">Прочитаны все %1$d песен</string>
 
     <!-- Content descriptions -->
     <string name="content_description_add_song">Добавить песню</string>
@@ -30,15 +39,25 @@
     <!-- Hints -->
     <string name="hint_song_title">Название песни</string>
     <string name="hint_song_author">Автор песни</string>
+    <string name="hint_song_list">Вставьте список песен…</string>
+    <string name="hint_song_format">Формат песни</string>
+    <string name="hint_song_separator">Разделитель</string>
 
     <!-- Errors -->
     <string name="error_song_title_blank">Название не должно быть пустым</string>
     <string name="error_song_author_blank">Автор не должен быть пустым</string>
+    <string name="error_song_list_blank">Список не должен быть пустым</string>
+    <string name="error_song_format_not_selected">Выберите формат песни</string>
+    <string name="error_song_separator_not_selected">Выберите разделитель</string>
 
     <!-- Example data -->
     <string name="stub_song_title">Название песни</string>
     <string name="stub_song_author">Автор песни</string>
     <string name="stub_song_action">Действие</string>
+
+    <!-- Drop down list items -->
+    <string name="drop_down_item_song_format_author_before_title">Автор%1$sНазвание</string>
+    <string name="drop_down_item_song_format_title_before_author">Название%1$sАвтор</string>
 
     <!-- Extras -->
     <string name="empty" />
