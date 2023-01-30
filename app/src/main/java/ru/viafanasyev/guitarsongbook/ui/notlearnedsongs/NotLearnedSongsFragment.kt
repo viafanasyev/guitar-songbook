@@ -56,7 +56,9 @@ class NotLearnedSongsFragment : Fragment() {
             onSongAction = ::onSongAction,
             onSongDelete = ::onSongDelete,
         ).apply {
-            notLearnedSongsViewModel.allNotLearned.observe(viewLifecycleOwner, ::submitList)
+            notLearnedSongsViewModel.allNotLearned.observe(viewLifecycleOwner) { list ->
+                submitList(list.sortedWith(compareBy({ it.author }, { it.title })))
+            }
         }
 
         val addSongActivityLauncher =

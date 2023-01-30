@@ -15,8 +15,8 @@ import ru.viafanasyev.guitarsongbook.R
 import ru.viafanasyev.guitarsongbook.adapter.LearnedSongsRecyclerAdapter
 import ru.viafanasyev.guitarsongbook.databinding.FragmentLearnedSongsBinding
 import ru.viafanasyev.guitarsongbook.domain.DataAccessService
-import ru.viafanasyev.guitarsongbook.domain.common.entities.SongListItem
 import ru.viafanasyev.guitarsongbook.domain.common.entities.Song
+import ru.viafanasyev.guitarsongbook.domain.common.entities.SongListItem
 import ru.viafanasyev.guitarsongbook.ui.actions.SongAction
 import ru.viafanasyev.guitarsongbook.ui.actions.SongActionType
 import ru.viafanasyev.guitarsongbook.ui.actions.SongActionsDialogFragment
@@ -56,7 +56,9 @@ class LearnedSongsFragment : Fragment() {
             onSongAction = ::onSongAction,
             onSongDelete = ::onSongDelete,
         ).apply {
-            learnedSongsViewModel.allLearned.observe(viewLifecycleOwner, ::submitList)
+            learnedSongsViewModel.allLearned.observe(viewLifecycleOwner) { list ->
+                submitList(list.sortedWith(compareBy({ it.author }, { it.title })))
+            }
         }
 
         val addSongActivityLauncher =
