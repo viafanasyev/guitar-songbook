@@ -13,3 +13,6 @@ fun <A, B> List<Either<A, B>>.unzipEither(): Pair<List<A>, List<B>> {
     }
     return Pair(lefts, rights)
 }
+
+fun String.withZeroWidthCharactersRemoved() =
+    replace("[\\p{Cf}]".toRegex(), "")

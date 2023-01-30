@@ -1,5 +1,7 @@
 package ru.viafanasyev.guitarsongbook.parser
 
+import ru.viafanasyev.guitarsongbook.utils.withZeroWidthCharactersRemoved
+
 class SongMatcher private constructor(
     private val regex: Regex,
 ) {
@@ -9,7 +11,8 @@ class SongMatcher private constructor(
     )
 
     fun match(line: String): Match? {
-        val groups = regex.matchEntire(line)?.groups as? MatchNamedGroupCollection ?: return null
+        val cleanedLine = line.withZeroWidthCharactersRemoved()
+        val groups = regex.matchEntire(cleanedLine)?.groups as? MatchNamedGroupCollection ?: return null
         val title = groups["title"]?.value ?: return null
         val author = groups["author"]?.value ?: return null
         return Match(title, author)
