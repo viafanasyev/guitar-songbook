@@ -4,16 +4,15 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import ru.viafanasyev.guitarsongbook.databinding.ActivityMainBinding
-import ru.viafanasyev.guitarsongbook.ui.detailed.SongActivity
+import ru.viafanasyev.guitarsongbook.ui.export.SongListExportActivity
 import ru.viafanasyev.guitarsongbook.ui.parsing.SongListParsingActivity
-import ru.viafanasyev.guitarsongbook.utils.Extras
 
 class MainActivity : AppCompatActivity() {
 
@@ -49,6 +48,11 @@ class MainActivity : AppCompatActivity() {
         return when (item.itemId) {
             R.id.parseSongList -> {
                 val intent = Intent(this, SongListParsingActivity::class.java)
+                startActivity(intent)
+                true
+            }
+            R.id.exportSongList -> {
+                val intent = Intent(this, SongListExportActivity::class.java)
                 startActivity(intent)
                 true
             }

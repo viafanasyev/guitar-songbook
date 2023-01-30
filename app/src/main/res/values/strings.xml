@@ -17,9 +17,12 @@
     <string name="message_added_song">Добавлена песня \'%1$s — %2$s\'</string>
     <string name="message_moved_song_to_learned">Песня \'%1$s — %2$s\' перемещена в изученные</string>
     <string name="message_moved_song_to_not_learned">Песня \'%1$s — %2$s\' перемещена в неизученные</string>
+    <string name="message_songs_copied_to_clipboard">Песни скопированы в буфер обмена</string>
 
     <!-- Menu options -->
     <string name="menu_option_parse_song_list">Добавить список песен</string>
+    <string name="menu_option_export_song_list">Экспортировать список песен</string>
+    <string name="menu_option_copy_to_clipboard">Скопировать в буфер обмена</string>
 
     <!-- Dialogs -->
     <string name="dialog_title_delete_song">Удалить песню</string>
@@ -58,6 +61,9 @@
     <!-- Drop down list items -->
     <string name="drop_down_item_song_format_author_before_title">Автор%1$sНазвание</string>
     <string name="drop_down_item_song_format_title_before_author">Название%1$sАвтор</string>
+
+    <!-- Clipboard labels -->
+    <string name="clipboard_label_exported_song_list">Exported song list</string>
 
     <!-- Extras -->
     <string name="empty" />

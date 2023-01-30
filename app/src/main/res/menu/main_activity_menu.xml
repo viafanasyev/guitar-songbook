@@ -5,4 +5,8 @@
         android:id="@+id/parseSongList"
         android:title="@string/menu_option_parse_song_list"
         app:showAsAction="never"/>
+    <item
+        android:id="@+id/exportSongList"
+        android:title="@string/menu_option_export_song_list"
+        app:showAsAction="never"/>
 </menu>
